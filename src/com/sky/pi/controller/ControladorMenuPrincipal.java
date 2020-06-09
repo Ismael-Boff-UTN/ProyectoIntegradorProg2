@@ -51,10 +51,12 @@ public class ControladorMenuPrincipal implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menu.getBtnListaAlumnos()) {
-            menu.getLblAlumnos().setVisible(true);
-            menu.getLblInsc().setVisible(false);
-            menu.getLblCarreras().setVisible(false);
-            menu.getLblProf().setVisible(false);
+            menu.getSelectAlumnos().setVisible(true);
+            menu.getSelectCarrera().setVisible(false);
+            menu.getSelectCursado().setVisible(false);
+            menu.getSelectInsc().setVisible(false);
+            menu.getSelectMat().setVisible(false);
+            menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Alumnos");
             panelAlumno();
             ca.clearTable();
@@ -62,20 +64,24 @@ public class ControladorMenuPrincipal implements ActionListener {
 
         }
         if (e.getSource() == menu.getBtnListaCarreras()) {
-            menu.getLblCarreras().setVisible(true);
-            menu.getLblAlumnos().setVisible(false);
-            menu.getLblInsc().setVisible(false);
-            menu.getLblProf().setVisible(false);
+            menu.getSelectAlumnos().setVisible(false);
+            menu.getSelectCarrera().setVisible(true);
+            menu.getSelectCursado().setVisible(false);
+            menu.getSelectInsc().setVisible(false);
+            menu.getSelectMat().setVisible(false);
+            menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Carreras");
             panelCarreras();
             cc.clearTable();
             cc.listarCarreras(panelCarreras.getTblCarreras());
         }
         if (e.getSource() == menu.getBtnInscripciones()) {
-            menu.getLblInsc().setVisible(true);
-            menu.getLblAlumnos().setVisible(false);
-            menu.getLblCarreras().setVisible(false);
-            menu.getLblProf().setVisible(false);
+            menu.getSelectAlumnos().setVisible(false);
+            menu.getSelectCarrera().setVisible(false);
+            menu.getSelectCursado().setVisible(false);
+            menu.getSelectInsc().setVisible(true);
+            menu.getSelectMat().setVisible(false);
+            menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Inscripciones");
             panelInscripciones();
 
@@ -84,10 +90,12 @@ public class ControladorMenuPrincipal implements ActionListener {
         }
         if (e.getSource() == menu.getBtnListaProfesores()) {
             // panelAlumnos.dispatchEvent(e);
-            menu.getLblProf().setVisible(true);
-            menu.getLblInsc().setVisible(false);
-            menu.getLblAlumnos().setVisible(false);
-            menu.getLblCarreras().setVisible(false);
+            menu.getSelectAlumnos().setVisible(false);
+            menu.getSelectCarrera().setVisible(false);
+            menu.getSelectCursado().setVisible(false);
+            menu.getSelectInsc().setVisible(false);
+            menu.getSelectMat().setVisible(false);
+            menu.getSelectProf().setVisible(true);
             menu.getLblMainTitle().setText("Lista De Profesores");
             panelProfesores();
             cp.clearTable();
@@ -95,23 +103,25 @@ public class ControladorMenuPrincipal implements ActionListener {
 
         }
         if (e.getSource() == menu.getBtnMaterias()) {
-            menu.getLblMaterias().setVisible(true);
-            menu.getLblProf().setVisible(false);
-            menu.getLblInsc().setVisible(false);
-            menu.getLblAlumnos().setVisible(false);
-            menu.getLblCarreras().setVisible(false);
+            menu.getSelectAlumnos().setVisible(false);
+            menu.getSelectCarrera().setVisible(false);
+            menu.getSelectCursado().setVisible(false);
+            menu.getSelectInsc().setVisible(false);
+            menu.getSelectMat().setVisible(true);
+            menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Materias");
             panelMaterias();
             cm.clearTable();
             cm.listarMaterias(panelMaterias.getTblMaterias());
         }
         if (e.getSource() == menu.getBtnCursados()) {
-            menu.getLblCursos().setVisible(true);
-            menu.getLblMaterias().setVisible(false);
-            menu.getLblProf().setVisible(false);
-            menu.getLblInsc().setVisible(false);
-            menu.getLblAlumnos().setVisible(false);
-            menu.getLblCarreras().setVisible(false);
+            menu.getSelectCursado().setVisible(true);
+            menu.getSelectAlumnos().setVisible(false);
+            menu.getSelectCarrera().setVisible(false);
+
+            menu.getSelectInsc().setVisible(false);
+            menu.getSelectMat().setVisible(false);
+            menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Cursados");
             panelCursados();
         }

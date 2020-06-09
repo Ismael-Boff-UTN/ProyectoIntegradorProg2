@@ -2,8 +2,6 @@ package com.sky.pi.controller;
 
 import com.sky.pi.dao.MateriaDAO;
 import com.sky.pi.dao.ProfesorDAO;
-import com.sky.pi.model.Alumno;
-import com.sky.pi.model.Carrera;
 import com.sky.pi.model.Materia;
 import com.sky.pi.model.Profesor;
 import com.sky.pi.view.AgregarMateria;

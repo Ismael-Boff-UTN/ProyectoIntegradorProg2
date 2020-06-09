@@ -45,15 +45,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
+                          <Component id="lblMainTitle" min="-2" pref="696" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
                           <Component id="mainPanel" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="lblMainTitle" min="-2" pref="696" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -63,7 +63,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jPanel2" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <Component id="lblMainTitle" max="32767" attributes="0"/>
+                  <Component id="lblMainTitle" pref="52" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="mainPanel" min="-2" pref="537" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -82,31 +82,29 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnListaProfesores" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnListaCarreras" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnInscripciones" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCursados" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnListaAlumnos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMaterias" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="selectProf" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="selectAlumnos" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="selectCarrera" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="selectInsc" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="selectMat" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="selectCursado" alignment="1" min="-2" pref="62" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btnListaAlumnos" max="32767" attributes="0"/>
-                          <Component id="btnListaCarreras" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnInscripciones" max="32767" attributes="0"/>
-                          <Component id="btnCursados" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnMaterias" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnListaProfesores" pref="215" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblProf" alignment="1" pref="0" max="32767" attributes="0"/>
-                              <Component id="lblAlumnos" alignment="1" min="-2" pref="36" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lblMaterias" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="lblCursos" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="lblCarreras" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="lblInsc" min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel1" min="-2" pref="256" max="-2" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -114,40 +112,39 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnListaAlumnos" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="lblAlumnos" max="32767" attributes="0"/>
+                          <Component id="btnListaAlumnos" alignment="1" max="32767" attributes="0"/>
+                          <Component id="selectAlumnos" alignment="1" pref="77" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnListaProfesores" pref="77" max="32767" attributes="0"/>
+                          <Component id="selectProf" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
-                              <Component id="btnListaProfesores" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="btnMaterias" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnCursados" pref="72" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnInscripciones" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="lblProf" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="selectMat" pref="72" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="selectCursado" pref="72" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="selectInsc" pref="73" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnMaterias" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="lblMaterias" max="32767" attributes="0"/>
+                          <Component id="btnListaCarreras" pref="77" max="32767" attributes="0"/>
+                          <Component id="selectCarrera" pref="77" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnCursados" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="lblCursos" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnInscripciones" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="lblInsc" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnListaCarreras" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="lblCarreras" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -179,6 +176,9 @@
                   <Image iconType="3" name="/com/sky/pi/images/profesoresHover.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListaProfesoresActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnMaterias">
               <Properties>
@@ -271,45 +271,45 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblProf">
+            <Component class="javax.swing.JLabel" name="selectProf">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblAlumnos">
+            <Component class="javax.swing.JLabel" name="selectInsc">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCarreras">
+            <Component class="javax.swing.JLabel" name="selectAlumnos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblMaterias">
+            <Component class="javax.swing.JLabel" name="selectMat">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCursos">
+            <Component class="javax.swing.JLabel" name="selectCarrera">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblInsc">
+            <Component class="javax.swing.JLabel" name="selectCursado">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/sky/pi/images/selected (2).png"/>
+                  <Image iconType="3" name="/com/sky/pi/images/menuSelection.png"/>
                 </Property>
               </Properties>
             </Component>

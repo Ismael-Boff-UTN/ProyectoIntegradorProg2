@@ -72,7 +72,7 @@ public class PanelMaterias extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(686, 100));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(686, 100));
 
         tblMaterias.setModel(new javax.swing.table.DefaultTableModel(
