@@ -16,7 +16,7 @@ public class Conexion {
     Se Requiere La Libreria/Conector MySQL Importado.
      */
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATA_BASE = "proyecto_integrador";
+    private static final String DATA_BASE = "sgaprog2";
     private static final String SSL = "?useSSL=false";
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER_NAME = "root";

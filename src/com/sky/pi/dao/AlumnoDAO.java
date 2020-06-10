@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AlumnoDAO extends Conexion {
 
-    private final String SQL_INSERT = "INSERT INTO alumno (alu_dni, alu_nombre,alu_apellido,alu_fec_nac,alu_domicilio, alu_telefono, alu_insc_cod) VALUES (?,?,?,?,?,?,?)";
+    private final String SQL_INSERT = "INSERT INTO alumno (alu_dni, alu_nombre,alu_apellido,alu_fec_nac,alu_domicilio, alu_telefono) VALUES (?,?,?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM alumno";
     private final String SQL_DELETE = "DELETE FROM alumno WHERE alu_id=?";
     private final String SQL_UPDATE = "UPDATE alumno SET alu_nombre=?,alu_apellido=?,alu_fec_nac=?, alu_domicilio=?,alu_telefono=?,alu_insc_cod=? WHERE alu_id=?";
@@ -38,7 +38,7 @@ public class AlumnoDAO extends Conexion {
             ps.setDate(4, alumno.getFechaNacimiento());
             ps.setString(5, alumno.getDomicilio());
             ps.setInt(6, alumno.getTelefono());
-            ps.setString(7, alumno.getCodigoInscripcion());
+            //ps.setString(7, alumno.getCodigoInscripcion());
 
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data

@@ -154,6 +154,11 @@ public class EditarProfesor extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel6.setText("Telefono");
 
+        txtDni.setEditable(false);
+
+        dateChooserCombo.setFormat(2);
+        dateChooserCombo.setLocale(new java.util.Locale("es", "BO", ""));
+
         btnGuardar.setText("Guardar");
 
         btnCancelar.setText("Canecelar");

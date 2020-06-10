@@ -1,6 +1,8 @@
 package com.sky.pi.model;
 
+import com.sky.pi.dao.AlumnoDAO;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -16,15 +18,16 @@ public class Alumno {
     private String domicilio;
     private int telefono;
     private String codigoInscripcion;
+    private AlumnoDAO alumnoDAO = new AlumnoDAO();
 
-    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono, String codigoInscripcion) {
+    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.domicilio = domicilio;
         this.telefono = telefono;
-        this.codigoInscripcion = codigoInscripcion;
+       
     }
 
     public Alumno(String codigoInscripcion, int id) {
@@ -97,6 +100,24 @@ public class Alumno {
 
     public void setCodigoInscripcion(String codigoInscripcion) {
         this.codigoInscripcion = codigoInscripcion;
+    }
+
+    //CRUD
+    //CREATE
+    public boolean createAlumno(Alumno alumno) {
+        return alumnoDAO.create(alumno);
+    }
+    //READ
+    public List<Alumno> readlumnos() {
+        return alumnoDAO.read();
+    }
+    //UPDATE
+    public boolean updateAlumno(Alumno alumno) {
+        return alumnoDAO.update(alumno);
+    }
+    //DELETE
+    public boolean deleteAlumno(int idAlumno) {
+        return alumnoDAO.delete(idAlumno);
     }
 
 }

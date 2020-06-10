@@ -81,11 +81,11 @@ public class PanelAlumnos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "DNI", "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "Telefono", "Cod. Inscripcion"
+                "DNI", "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "Telefono", "Cod. Inscripcion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

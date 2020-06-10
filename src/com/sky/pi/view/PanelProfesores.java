@@ -76,11 +76,11 @@ public class PanelProfesores extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "DNI", "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "Telefono"
+                "DNI", "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "Telefono"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -90,7 +90,7 @@ public class PanelProfesores extends javax.swing.JPanel {
         tblProfesores.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblProfesores);
         if (tblProfesores.getColumnModel().getColumnCount() > 0) {
-            tblProfesores.getColumnModel().getColumn(6).setResizable(false);
+            tblProfesores.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N

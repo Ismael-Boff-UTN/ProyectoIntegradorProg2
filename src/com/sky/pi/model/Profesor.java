@@ -1,6 +1,8 @@
 package com.sky.pi.model;
 
+import com.sky.pi.dao.ProfesorDAO;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -8,13 +10,13 @@ import java.sql.Date;
  */
 public class Profesor {
 
-    private int id;
     private int dni;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;
     private String domicilio;
     private int telefono;
+    private ProfesorDAO profesorDAO = new ProfesorDAO();
 
     public Profesor() {
     }
@@ -29,12 +31,12 @@ public class Profesor {
         this.telefono = telefono;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Profesor(String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
     }
 
     public int getDni() {
@@ -85,4 +87,24 @@ public class Profesor {
         this.telefono = telefono;
     }
 
+    //CRUD
+    //CREATE
+    public boolean createProfesor(Profesor profesor) {
+        return profesorDAO.create(profesor);
+    }
+
+    //READ
+    public List<Profesor> readProfesores() {
+        return profesorDAO.read();
+    }
+
+    //UPDATE
+    public boolean updateProfesores(Profesor profesor) {
+        return profesorDAO.update(profesor);
+    }
+
+    //DELETE
+    public boolean deleteProfesor(int idProfesor) {
+        return profesorDAO.delete(idProfesor);
+    }
 }

@@ -18,8 +18,8 @@ public class ProfesorDAO extends Conexion {
 
     private final String SQL_INSERT = "INSERT INTO profesor (prof_dni, prof_nombre,prof_apellido,prof_fec_nac,prof_domicilio, prof_telefono) VALUES (?,?,?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM profesor";
-    private final String SQL_DELETE = "DELETE FROM profesor WHERE prof_id=?";
-    private final String SQL_UPDATE = "UPDATE profesor SET prof_dni = ?, prof_nombre=?,prof_apellido=?,prof_fec_nac=?,prof_domicilio=?, prof_telefono=? WHERE prof_id=?";
+    private final String SQL_DELETE = "DELETE FROM profesor WHERE prof_dni=?";
+    private final String SQL_UPDATE = "UPDATE profesor SET prof_nombre=?,prof_apellido=?,prof_fec_nac=?,prof_domicilio=?, prof_telefono=? WHERE prof_dni=?";
 
     public boolean create(Profesor profesor) {
         PreparedStatement ps = null;
@@ -81,13 +81,13 @@ public class ProfesorDAO extends Conexion {
             procesar el resultado del query sin ningún problema. */
             while (rs.next()) {
                 profesor = new Profesor();
-                profesor.setId(rs.getInt(1));
-                profesor.setDni(rs.getInt(2));
-                profesor.setNombre(rs.getString(3));
-                profesor.setApellido(rs.getString(4));
-                profesor.setFechaNacimiento(rs.getDate(5));
-                profesor.setDomicilio(rs.getString(6));
-                profesor.setTelefono(rs.getInt(7));
+
+                profesor.setDni(rs.getInt(1));
+                profesor.setNombre(rs.getString(2));
+                profesor.setApellido(rs.getString(3));
+                profesor.setFechaNacimiento(rs.getDate(4));
+                profesor.setDomicilio(rs.getString(5));
+                profesor.setTelefono(rs.getInt(6));
 
                 listaProfesores.add(profesor);
 
@@ -113,14 +113,13 @@ public class ProfesorDAO extends Conexion {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_UPDATE);
 
-            ps.setInt(1, profesor.getDni());
-            ps.setString(2, profesor.getNombre());
-            ps.setString(3, profesor.getApellido());
-            ps.setDate(4, profesor.getFechaNacimiento());
-            ps.setString(5, profesor.getDomicilio());
-            ps.setInt(6, profesor.getTelefono());
+            ps.setString(1, profesor.getNombre());
+            ps.setString(2, profesor.getApellido());
+            ps.setDate(3, profesor.getFechaNacimiento());
+            ps.setString(4, profesor.getDomicilio());
+            ps.setInt(5, profesor.getTelefono());
 
-            ps.setInt(7, profesor.getId());
+            ps.setInt(6, profesor.getDni());
             ps.executeUpdate();
             System.out.println("Actualizado Con Exito");
             return true;
