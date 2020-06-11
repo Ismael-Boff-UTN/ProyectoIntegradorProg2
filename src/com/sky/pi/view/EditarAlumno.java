@@ -10,14 +10,12 @@ import javax.swing.JTextField;
  */
 public class EditarAlumno extends javax.swing.JFrame {
 
-    
-
-    public JButton getBtnAgregar() {
-        return btnAgregar;
+    public JButton getBtnEditar() {
+        return btnEditar;
     }
 
-    public void setBtnAgregar(JButton btnAgregar) {
-        this.btnAgregar = btnAgregar;
+    public void setBtnEditar(JButton btnEditar) {
+        this.btnEditar = btnEditar;
     }
 
     public JButton getBtnCancelar() {
@@ -109,7 +107,7 @@ public class EditarAlumno extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         txtDomicilio = new javax.swing.JTextField();
         dateChooser = new datechooser.beans.DateChooserCombo();
-        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -194,7 +192,7 @@ public class EditarAlumno extends javax.swing.JFrame {
     }
     dateChooser.setLocale(new java.util.Locale("es", "BO", ""));
 
-    btnAgregar.setText("Agregar");
+    btnEditar.setText("Agregar");
 
     btnCancelar.setText("Cancelar");
 
@@ -253,7 +251,7 @@ public class EditarAlumno extends javax.swing.JFrame {
             .addGap(25, 25, 25))
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addGap(159, 159, 159)
-            .addComponent(btnAgregar)
+            .addComponent(btnEditar)
             .addGap(146, 146, 146)
             .addComponent(btnCancelar)
             .addContainerGap(273, Short.MAX_VALUE))
@@ -285,7 +283,7 @@ public class EditarAlumno extends javax.swing.JFrame {
                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnAgregar)
+                .addComponent(btnEditar)
                 .addComponent(btnCancelar))
             .addGap(61, 61, 61))
     );
@@ -345,8 +343,8 @@ public class EditarAlumno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private datechooser.beans.DateChooserCombo dateChooser;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;

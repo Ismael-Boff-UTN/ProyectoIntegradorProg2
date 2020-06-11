@@ -19,6 +19,7 @@ public class CarreraDAO extends Conexion {
     private final String SQL_SELECT = "SELECT * FROM carrera";
     private final String SQL_DELETE = "DELETE FROM carrera WHERE car_cod=?";
     private final String SQL_UPDATE = "UPDATE carrera SET car_nombre=?,car_duracion=? WHERE car_cod=?";
+    private final String SQL_FIND = "SELECT * FROM carrera WHERE car_cod=?";
 
     public boolean create(Carrera carrera) {
         PreparedStatement ps = null;
@@ -32,8 +33,9 @@ public class CarreraDAO extends Conexion {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_INSERT);
 
-            ps.setString(1, carrera.getNombre());
-            ps.setString(2, carrera.getDuracion());
+            ps.setInt(1, carrera.getCodigoCarrera());
+            ps.setString(2, carrera.getNombre());
+            ps.setString(3, carrera.getDuracion());
 
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
@@ -146,6 +148,37 @@ public class CarreraDAO extends Conexion {
             Conexion.close(ps);
 
         }
+    }
+
+    public Carrera find(int codCarrera) {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Carrera carrera = new Carrera();
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(SQL_FIND);
+            ps.setInt(1, codCarrera);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                carrera.setCodigoCarrera(rs.getInt(1));
+                carrera.setNombre(rs.getString(2));
+                carrera.setDuracion(rs.getString(3));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al Buscar : " + e);
+
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+
+        }
+
+        return carrera;
     }
 
 }

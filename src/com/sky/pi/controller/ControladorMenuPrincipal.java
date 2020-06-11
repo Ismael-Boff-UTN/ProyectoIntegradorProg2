@@ -86,7 +86,9 @@ public class ControladorMenuPrincipal implements ActionListener {
             panelInscripciones();
 
             ci.clearTable();
+            //ci.cargarComboBox();
             ci.listarInscripciones(panelInscripciones.getTblInscripciones());
+           
         }
         if (e.getSource() == menu.getBtnListaProfesores()) {
             // panelAlumnos.dispatchEvent(e);

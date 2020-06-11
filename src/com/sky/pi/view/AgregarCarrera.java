@@ -13,37 +13,45 @@ import javax.swing.JTextField;
  * @author SkylakeFrost
  */
 public class AgregarCarrera extends javax.swing.JFrame {
-    
+
     public JButton getBtnAgregar() {
         return btnAgregar;
     }
-    
+
     public void setBtnAgregar(JButton btnAgregar) {
         this.btnAgregar = btnAgregar;
     }
-    
+
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-    
+
     public void setBtnCancelar(JButton btnCancelar) {
         this.btnCancelar = btnCancelar;
     }
-    
+
     public JTextField getTxtDuracion() {
         return txtDuracion;
     }
-    
+
     public void setTxtDuracion(JTextField txtDuracion) {
         this.txtDuracion = txtDuracion;
     }
-    
+
     public JTextField getTxtNombre() {
         return txtNombre;
     }
-    
+
     public void setTxtNombre(JTextField txtNombre) {
         this.txtNombre = txtNombre;
+    }
+
+    public JTextField getTxtCodCarrera() {
+        return txtCodCarrera;
+    }
+
+    public void setTxtCodCarrera(JTextField txtCodCarrera) {
+        this.txtCodCarrera = txtCodCarrera;
     }
 
     /**
@@ -72,6 +80,8 @@ public class AgregarCarrera extends javax.swing.JFrame {
         txtDuracion = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtCodCarrera = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,6 +98,8 @@ public class AgregarCarrera extends javax.swing.JFrame {
 
         btnCancelar.setText("Cancelar");
 
+        jLabel4.setText("Codigo Carrera");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,26 +111,33 @@ public class AgregarCarrera extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addGap(131, 131, 131))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(59, 59, 59)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                    .addComponent(txtNombre))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
+                            .addComponent(txtCodCarrera)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(145, 145, 145))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(62, 62, 62)
+                .addGap(64, 64, 64)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtCodCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,7 +207,9 @@ public class AgregarCarrera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCodCarrera;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

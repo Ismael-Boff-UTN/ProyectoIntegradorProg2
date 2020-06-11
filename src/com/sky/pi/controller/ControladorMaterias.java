@@ -1,6 +1,5 @@
 package com.sky.pi.controller;
 
-import com.sky.pi.dao.MateriaDAO;
 import com.sky.pi.dao.ProfesorDAO;
 import com.sky.pi.model.Materia;
 import com.sky.pi.model.Profesor;
@@ -22,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorMaterias implements ActionListener {
 
     private Materia materia = new Materia();
-    private MateriaDAO materiaDAO = new MateriaDAO();
+
     private AgregarMateria agregarMateria = new AgregarMateria();
     private EditarMateria editarMateria = new EditarMateria();
     private PanelMaterias panelMaterias;
@@ -53,29 +52,30 @@ public class ControladorMaterias implements ActionListener {
         if (e.getSource() == panelMaterias.getBtnNuevo()) {
             agregarMateria.setVisible(true);
             cargarComboBoxProfesores();
-        }
-        if (e.getSource() == panelMaterias.getBtnEliminar()) {
-            //TODO
-        }
-        if (e.getSource() == panelMaterias.getBtnEditar()) {
-            //TODO
-        }
-        if (e.getSource() == agregarMateria.getBtnAgregar()) {
+        } else if (e.getSource() == panelMaterias.getBtnEliminar()) {
+            eliminar();
+        } else if (e.getSource() == panelMaterias.getBtnEditar()) {
+            cargarVistaEditar();
+        } else if (e.getSource() == agregarMateria.getBtnAgregar()) {
             agregar();
-        }
-        if (e.getSource() == agregarMateria.getBtnCancelar()) {
+        } else if (e.getSource() == agregarMateria.getBtnCancelar()) {
             agregarMateria.dispose();
+        } else if (e.getSource() == editarMateria.getBtnAgregar()) {
+            editar();
+        } else if (e.getSource() == editarMateria.getBtnCancelar()) {
+            editarMateria.dispose();
         }
     }
 
     public void agregar() {
 
         materia = new Materia(
+                Integer.valueOf(agregarMateria.getTxtCodMateria().getText()),
                 agregarMateria.getTxtNombre().getText(),
-                Integer.valueOf(agregarMateria.getTxtDniProfesor().getText()),
-                String.valueOf(agregarMateria.getCbcProfesores().getSelectedItem()));
+                splitearProfe(agregarMateria.getCbxProfesores().getSelectedItem().toString())
+        );
 
-        if (materiaDAO.create(materia) == true) {
+        if (materia.createMateria(materia) == true) {
 
             clearTable();
             listarMaterias(panelMaterias.getTblMaterias());
@@ -87,12 +87,67 @@ public class ControladorMaterias implements ActionListener {
         }
     }
 
+    public void eliminar() {
+        int fila = panelMaterias.getTblMaterias().getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Desea Elimnar?", "Seleccione Una Opc.", JOptionPane.YES_NO_OPTION) == 0) {
+                int id = Integer.parseInt((String) panelMaterias.getTblMaterias().getValueAt(fila, 0).toString());
+                materia.deleteMateria(id);
+                clearTable();
+                listarMaterias(panelMaterias.getTblMaterias());
+                JOptionPane.showMessageDialog(null, "Eliminado!");
+            }
+
+        }
+    }
+
+    public void editar() {
+
+        int carCod = Integer.valueOf(editarMateria.getTxtMatCode().getText());
+        String nombre = editarMateria.getTxtNombre().getText();
+        int dniProf = splitearProfe(editarMateria.getCbcProfesores().getSelectedItem().toString());
+
+        materia = new Materia(carCod, nombre, dniProf);
+
+        if (materia.updateMateria(materia) == true) {
+            clearTable();
+            listarMaterias(panelMaterias.getTblMaterias());
+            JOptionPane.showMessageDialog(null, "Editado Con Exito");
+            editarMateria.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
+        }
+    }
+
+    public void cargarVistaEditar() {
+        int fila = panelMaterias.getTblMaterias().getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");
+        } else {
+            editarMateria.getTxtMatCode().setText(panelMaterias.getTblMaterias().getValueAt(fila, 0).toString());
+            editarMateria.getTxtNombre().setText(panelMaterias.getTblMaterias().getValueAt(fila, 1).toString());
+            editarMateria.getCbcProfesores().setSelectedItem(panelMaterias.getTblMaterias().getValueAt(fila, 2).toString());
+
+            editarMateria.setVisible(true);
+        }
+    }
+
     public void cargarComboBoxProfesores() {
         List<Profesor> listaProfesores = profesorDAO.read();
 
-        agregarMateria.getCbcProfesores().removeAllItems();
+        agregarMateria.getCbxProfesores().removeAllItems();
         for (int i = 0; i < listaProfesores.size(); i++) {
-            agregarMateria.getCbcProfesores().addItem(listaProfesores.get(i).getNombre() + " " + listaProfesores.get(i).getApellido());
+            agregarMateria.getCbxProfesores().addItem(listaProfesores.get(i).getDni() + " - " + listaProfesores.get(i).getNombre() + " " + listaProfesores.get(i).getApellido());
+
+        }
+
+        editarMateria.getCbcProfesores().removeAllItems();
+
+        for (int i = 0; i < listaProfesores.size(); i++) {
+            editarMateria.getCbcProfesores().addItem(listaProfesores.get(i).getDni() + " - " + listaProfesores.get(i).getNombre() + " " + listaProfesores.get(i).getApellido());
 
         }
     }
@@ -100,13 +155,12 @@ public class ControladorMaterias implements ActionListener {
     public void listarMaterias(JTable table) {
         modelo = (DefaultTableModel) panelMaterias.getTblMaterias().getModel();
         panelMaterias.getTblMaterias().setRowHeight(30);
-        List<Materia> lista = materiaDAO.read();
-        Object[] fila = new Object[4];
+        List<Materia> lista = materia.readMaterias();
+        Object[] fila = new Object[3];
         for (int i = 0; i < lista.size(); i++) {
-            fila[0] = lista.get(i).getIdMateria();
+            fila[0] = lista.get(i).getCodMateria();
             fila[1] = lista.get(i).getNombreMateria();
             fila[2] = lista.get(i).getDniProfesor();
-            fila[3] = lista.get(i).getNombreProfesor();
 
             modelo.addRow(fila);
         }
@@ -119,6 +173,13 @@ public class ControladorMaterias implements ActionListener {
             modelo.removeRow(i);
             i -= 1;
         }
+    }
+
+    public int splitearProfe(String profeDniNombre) {
+        String[] parts = profeDniNombre.split(" - ");
+        String part1 = parts[0]; // DNI
+
+        return Integer.valueOf(part1);
     }
 
 }

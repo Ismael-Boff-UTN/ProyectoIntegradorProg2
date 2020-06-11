@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class InscripcionDAO extends Conexion {
 
-    private final String SQL_INSERT = "INSERT INTO inscripcion (insc_nombre, insc_fecha, insc_car_cod) VALUES (?,?,?)";
+    private final String SQL_INSERT = "INSERT INTO inscripcion (insc_cod, insc_nombre, insc_fecha, insc_car_cod) VALUES (?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM inscripcion";
     private final String SQL_DELETE = "DELETE FROM inscripcion WHERE insc_cod=?";
     private final String SQL_UPDATE = "UPDATE inscripcion SET insc_nombre=?,insc_fecha=?, insc_car_cod WHERE insc_cod=?";
@@ -37,10 +37,11 @@ public class InscripcionDAO extends Conexion {
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_INSERT);
-
-            ps.setString(1, inscripcion.getNombre());
-            ps.setDate(2, inscripcion.getFecha());
-            ps.setString(3, inscripcion.getCodigoCarrera());
+            
+            ps.setInt(1, inscripcion.getCodigoInscripcion());
+            ps.setString(2, inscripcion.getNombre());
+            ps.setDate(3, inscripcion.getFecha());
+            ps.setInt(4, inscripcion.getCodigoCarrera());
 
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
@@ -87,7 +88,7 @@ public class InscripcionDAO extends Conexion {
                 inscripcion.setCodigoInscripcion(rs.getInt(1));
                 inscripcion.setNombre(rs.getString(2));
                 inscripcion.setFecha(rs.getDate(3));
-                inscripcion.setCodigoCarrera(rs.getString(4));
+                inscripcion.setCodigoCarrera(rs.getInt(4));
 
                 listaInscripciones.add(inscripcion);
 
@@ -115,7 +116,7 @@ public class InscripcionDAO extends Conexion {
 
             ps.setString(1, inscripcion.getNombre());
             ps.setDate(2, inscripcion.getFecha());
-            ps.setString(3, inscripcion.getCodigoCarrera());
+            ps.setInt(3, inscripcion.getCodigoCarrera());
 
             ps.setInt(4, inscripcion.getCodigoInscripcion());
             ps.executeUpdate();

@@ -1,6 +1,5 @@
 package com.sky.pi.controller;
 
-
 import com.sky.pi.model.Alumno;
 import com.sky.pi.view.AgregarAlumno;
 import com.sky.pi.view.EditarAlumno;
@@ -40,24 +39,29 @@ public class ControladorAlumnos implements ActionListener {
         this.agregarAlumno.getBtnAgregar().addActionListener(this);
         this.agregarAlumno.getBtnCancelar().addActionListener(this);
 
+        this.editarAlumno.getBtnEditar().addActionListener(this);
+        this.editarAlumno.getBtnCancelar().addActionListener(this);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == panelAlumnos.getBtnNuevoAlumno()) {
             agregarAlumno.setVisible(true);
-        }
-        if (e.getSource() == agregarAlumno.getBtnAgregar()) {
-            agregar();
-        }
-        if (e.getSource() == agregarAlumno.getBtnCancelar()) {
-            agregarAlumno.dispose();
-        }
-        if (e.getSource() == panelAlumnos.getBtnEliminar()) {
+        } else if (e.getSource() == panelAlumnos.getBtnEliminar()) {
             eliminar();
-        }
-        if (e.getSource() == panelAlumnos.getBtnEditar()) {
+        } else if (e.getSource() == panelAlumnos.getBtnEditar()) {
             cargarVistaEditar();
+
+        } else if (e.getSource() == agregarAlumno.getBtnAgregar()) {
+            agregar();
+        } else if (e.getSource() == agregarAlumno.getBtnCancelar()) {
+            agregarAlumno.dispose();
+        } else if (e.getSource() == editarAlumno.getBtnEditar()) {
+            editar();
+        } else if (e.getSource() == editarAlumno.getBtnCancelar()) {
+            editarAlumno.dispose();
         }
 
     }
@@ -66,16 +70,15 @@ public class ControladorAlumnos implements ActionListener {
         modelo = (DefaultTableModel) panelAlumnos.getTblAlumnos().getModel();
         panelAlumnos.getTblAlumnos().setRowHeight(30);
         List<Alumno> lista = alumno.readlumnos();
-        Object[] fila = new Object[8];
+        Object[] fila = new Object[7];
         for (int i = 0; i < lista.size(); i++) {
-            fila[0] = lista.get(i).getId();
-            fila[1] = lista.get(i).getDni();
-            fila[2] = lista.get(i).getNombre();
-            fila[3] = lista.get(i).getApellido();
-            fila[4] = lista.get(i).getFechaNacimiento();
-            fila[5] = lista.get(i).getDomicilio();
-            fila[6] = lista.get(i).getTelefono();
-            fila[7] = lista.get(i).getCodigoInscripcion();
+            fila[0] = lista.get(i).getDni();
+            fila[1] = lista.get(i).getNombre();
+            fila[2] = lista.get(i).getApellido();
+            fila[3] = lista.get(i).getFechaNacimiento();
+            fila[4] = lista.get(i).getDomicilio();
+            fila[5] = lista.get(i).getTelefono();
+            fila[6] = lista.get(i).getCodigoInscripcion();
             modelo.addRow(fila);
         }
         panelAlumnos.getTblAlumnos().setModel(modelo);
@@ -103,7 +106,6 @@ public class ControladorAlumnos implements ActionListener {
                     Integer.valueOf(agregarAlumno.getTxtTelefono().getText())
             );
 
-            System.out.println(alumno.getFechaNacimiento());
             if (alumno.createAlumno(alumno) == true) {
 
                 clearTable();
@@ -133,42 +135,40 @@ public class ControladorAlumnos implements ActionListener {
         }
     }
 
-//    public void editar() {
-//        
-//        int dni = ;
-//        String nombre =;
-//        String apellido =;
-//        Date fechaNacimiento =;
-//        String domicilio = ;
-//        String telefono = ;
-//        
-//             
-//               
-//        
-//        persona = new Persona(id, nombre, apellido, dni, cuit);
-//        crud.update(persona);
-//        if (crud.update(persona) == true) {
-//            clearTable();
-//            listInTable(vistaListaPersonas.getTblPersonas());
-//            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-//            vistaEditarPersona.setVisible(false);
-//
-//        } else {
-//            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
-//        }
-//    }
+    public void editar() {
+
+        int dni = Integer.valueOf(editarAlumno.getTxtDni().getText());
+        String nombre = editarAlumno.getTxtNombre().getText();
+        String apellido = editarAlumno.getTxtApellido().getText();
+        Date fechaNacimiento = Date.valueOf(convertirFecha(editarAlumno.getDateChooser().getText()));
+        String domicilio = editarAlumno.getTxtDomicilio().getText();
+        int telefono = Integer.valueOf(editarAlumno.getTxtTelefono().getText());
+
+        alumno = new Alumno(dni, nombre, apellido, fechaNacimiento, domicilio, telefono);
+
+        if (alumno.updateAlumno(alumno) == true) {
+            clearTable();
+            listarAlumnos(panelAlumnos.getTblAlumnos());
+            JOptionPane.showMessageDialog(null, "Editado Con Exito");
+            editarAlumno.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
+        }
+    }
+
     public void cargarVistaEditar() {
 
         int fila = panelAlumnos.getTblAlumnos().getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");
         } else {
-            editarAlumno.getTxtDni().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 1).toString());
-            editarAlumno.getTxtNombre().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 2).toString());
-            editarAlumno.getTxtApellido().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 3).toString());
-            editarAlumno.getDateChooser().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 4).toString());
-            editarAlumno.getTxtDomicilio().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 5).toString());
-            editarAlumno.getTxtTelefono().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 6).toString());
+            editarAlumno.getTxtDni().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 0).toString());
+            editarAlumno.getTxtNombre().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 1).toString());
+            editarAlumno.getTxtApellido().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 2).toString());
+            editarAlumno.getDateChooser().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 3).toString());
+            editarAlumno.getTxtDomicilio().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 4).toString());
+            editarAlumno.getTxtTelefono().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 5).toString());
             editarAlumno.setVisible(true);
         }
 

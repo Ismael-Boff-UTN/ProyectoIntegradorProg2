@@ -80,11 +80,11 @@ public class PanelMaterias extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cod. Materia", "Nombre", "DNI Profesor", "Nombre Profesor"
+                "Cod. Materia", "Nombre", "DNI Profesor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

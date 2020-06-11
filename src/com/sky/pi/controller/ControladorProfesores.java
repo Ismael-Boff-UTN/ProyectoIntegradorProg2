@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorProfesores implements ActionListener {
 
     private Profesor profesor = new Profesor();
-    //private ProfesorDAO profesorDAO = new ProfesorDAO();
     private AgregarProfesor agregarProfesor = new AgregarProfesor();
     private EditarProfesor editarProfesor = new EditarProfesor();
     private PanelProfesores panelProfesores;
@@ -135,7 +134,7 @@ public class ControladorProfesores implements ActionListener {
             clearTable();
             listarProfesores(panelProfesores.getTblProfesores());
             JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarProfesor.setVisible(false);
+            editarProfesor.dispose();
 
         } else {
             JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");

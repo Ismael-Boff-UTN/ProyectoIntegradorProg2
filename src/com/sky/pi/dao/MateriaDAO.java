@@ -1,7 +1,6 @@
 package com.sky.pi.dao;
 
 import static com.sky.pi.dao.Conexion.getConnection;
-import com.sky.pi.model.Carrera;
 import com.sky.pi.model.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,10 +15,10 @@ import java.util.List;
  */
 public class MateriaDAO extends Conexion {
 
-    private final String SQL_INSERT = "INSERT INTO materia (mat_nombre,mat_prof_dni, mat_prof_nombre) VALUES (?,?,?)";
+    private final String SQL_INSERT = "INSERT INTO materia (mat_cod,mat_nombre, mat_prof_dni) VALUES (?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM materia";
-    private final String SQL_DELETE = "DELETE FROM materia WHERE mate_cod=?";
-    private final String SQL_UPDATE = "UPDATE materia SET mat_nombre =?,mat_prof_dni=?, mat_prof_nombre=? WHERE mate_cod=?";
+    private final String SQL_DELETE = "DELETE FROM materia WHERE mat_cod=?";
+    private final String SQL_UPDATE = "UPDATE materia SET mat_nombre =?, mat_prof_dni=? WHERE mat_cod=?";
 
     public boolean create(Materia materia) {
         PreparedStatement ps = null;
@@ -33,9 +32,9 @@ public class MateriaDAO extends Conexion {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_INSERT);
 
-            ps.setString(1, materia.getNombreMateria());
-            ps.setInt(2, materia.getDniProfesor());
-            ps.setString(3, materia.getNombreProfesor());
+            ps.setInt(1, materia.getCodMateria());
+            ps.setString(2, materia.getNombreMateria());
+            ps.setInt(3, materia.getDniProfesor());
 
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
@@ -79,10 +78,9 @@ public class MateriaDAO extends Conexion {
             while (rs.next()) {
                 materia = new Materia();
 
-                materia.setIdMateria(rs.getInt(1));
-                materia.setNombreMateria(rs.getString(1));
-                materia.setDniProfesor(rs.getInt(2));
-                materia.setNombreProfesor(rs.getString(3));
+                materia.setCodMateria(rs.getInt(1));
+                materia.setNombreMateria(rs.getString(2));
+                materia.setDniProfesor(rs.getInt(3));
 
                 listaMaterias.add(materia);
 
@@ -110,9 +108,8 @@ public class MateriaDAO extends Conexion {
 
             ps.setString(1, materia.getNombreMateria());
             ps.setInt(2, materia.getDniProfesor());
-            ps.setString(3, materia.getNombreProfesor());
 
-            ps.setInt(4, materia.getIdMateria());
+            ps.setInt(3, materia.getCodMateria());
             ps.executeUpdate();
             System.out.println("Actualizado Con Exito");
             return true;

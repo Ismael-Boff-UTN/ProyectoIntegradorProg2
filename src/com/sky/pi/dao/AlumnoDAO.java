@@ -16,9 +16,10 @@ public class AlumnoDAO extends Conexion {
 
     private final String SQL_INSERT = "INSERT INTO alumno (alu_dni, alu_nombre,alu_apellido,alu_fec_nac,alu_domicilio, alu_telefono) VALUES (?,?,?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM alumno";
-    private final String SQL_DELETE = "DELETE FROM alumno WHERE alu_id=?";
-    private final String SQL_UPDATE = "UPDATE alumno SET alu_nombre=?,alu_apellido=?,alu_fec_nac=?, alu_domicilio=?,alu_telefono=?,alu_insc_cod=? WHERE alu_id=?";
-    private final String SQL_UPDATE_CARRERA = "UPDATE alumno SET alu_insc_cod=? WHERE alu_id=?";
+    private final String SQL_DELETE = "DELETE FROM alumno WHERE alu_dni=?";
+    private final String SQL_UPDATE = "UPDATE alumno SET alu_nombre=?,alu_apellido=?,alu_fec_nac=?, alu_domicilio=?,alu_telefono=?,alu_insc_cod=? WHERE alu_dni=?";
+    private final String SQL_UPDATE_CARRERA = "UPDATE alumno SET alu_insc_cod=? WHERE alu_dni=?";
+    private final String SQL_FIND = "SELECT * FROM alumno WHERE alu_dni=?";
 
     public boolean create(Alumno alumno) {
         PreparedStatement ps = null;
@@ -82,14 +83,13 @@ public class AlumnoDAO extends Conexion {
             while (rs.next()) {
                 alumno = new Alumno();
 
-                alumno.setId(rs.getInt(1));
-                alumno.setDni(rs.getInt(2));
-                alumno.setNombre(rs.getString(3));
-                alumno.setApellido(rs.getString(4));
-                alumno.setFechaNacimiento(rs.getDate(5));
-                alumno.setDomicilio(rs.getString(6));
-                alumno.setTelefono(rs.getInt(7));
-                alumno.setCodigoInscripcion(rs.getString(8));
+                alumno.setDni(rs.getInt(1));
+                alumno.setNombre(rs.getString(2));
+                alumno.setApellido(rs.getString(3));
+                alumno.setFechaNacimiento(rs.getDate(4));
+                alumno.setDomicilio(rs.getString(5));
+                alumno.setTelefono(rs.getInt(6));
+                alumno.setCodigoInscripcion(rs.getInt(7));
 
                 listaAlumnos.add(alumno);
 
@@ -115,15 +115,14 @@ public class AlumnoDAO extends Conexion {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_UPDATE);
 
-            ps.setInt(1, alumno.getDni());
-            ps.setString(2, alumno.getNombre());
-            ps.setString(3, alumno.getApellido());
-            ps.setDate(4, alumno.getFechaNacimiento());
-            ps.setString(5, alumno.getDomicilio());
-            ps.setInt(6, alumno.getTelefono());
-            ps.setString(7, alumno.getCodigoInscripcion());
+            ps.setString(1, alumno.getNombre());
+            ps.setString(2, alumno.getApellido());
+            ps.setDate(3, alumno.getFechaNacimiento());
+            ps.setString(4, alumno.getDomicilio());
+            ps.setInt(5, alumno.getTelefono());
+            ps.setInt(6, alumno.getCodigoInscripcion());
 
-            ps.setInt(8, alumno.getId());
+            ps.setInt(7, alumno.getDni());
             ps.executeUpdate();
             System.out.println("Actualizado Con Exito");
             return true;
@@ -154,9 +153,9 @@ public class AlumnoDAO extends Conexion {
 //          ps.setDate(4, alumno.getFechaNacimiento());
 //          ps.setString(5, alumno.getDomicilio());
 //          ps.setInt(6, alumno.getTelefono());
-            ps.setString(1, alumno.getCodigoInscripcion());
+            ps.setInt(1, alumno.getCodigoInscripcion());
 
-            ps.setInt(2, alumno.getId());
+            ps.setInt(2, alumno.getDni());
             ps.executeUpdate();
             System.out.println("Actualizado Con Exito");
             return true;
@@ -194,6 +193,41 @@ public class AlumnoDAO extends Conexion {
             Conexion.close(ps);
 
         }
+    }
+
+    public Alumno find(int dniAlumno) {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Alumno alumno = new Alumno();
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(SQL_FIND);
+            ps.setInt(1, dniAlumno);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                alumno.setDni(rs.getInt(1));
+                alumno.setNombre(rs.getString(2));
+                alumno.setApellido(rs.getString(3));
+                alumno.setFechaNacimiento(rs.getDate(4));
+                alumno.setDomicilio(rs.getString(5));
+                alumno.setTelefono(rs.getInt(6));
+                alumno.setCodigoInscripcion(rs.getInt(7));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al Buscar : " + e);
+
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+
+        }
+
+        return alumno;
     }
 
 }

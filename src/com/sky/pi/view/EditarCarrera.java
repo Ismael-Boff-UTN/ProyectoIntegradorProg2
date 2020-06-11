@@ -1,4 +1,3 @@
-
 package com.sky.pi.view;
 
 import javax.swing.JButton;
@@ -9,37 +8,45 @@ import javax.swing.JTextField;
  * @author SkylakeFrost
  */
 public class EditarCarrera extends javax.swing.JFrame {
-
+    
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-
+    
     public void setBtnCancelar(JButton btnCancelar) {
         this.btnCancelar = btnCancelar;
     }
-
+    
     public JButton getBtnGuardarCambios() {
         return btnGuardarCambios;
     }
-
+    
     public void setBtnGuardarCambios(JButton btnGuardarCambios) {
         this.btnGuardarCambios = btnGuardarCambios;
     }
-
+    
     public JTextField getTxtDuracion() {
         return txtDuracion;
     }
-
+    
     public void setTxtDuracion(JTextField txtDuracion) {
         this.txtDuracion = txtDuracion;
     }
-
+    
     public JTextField getTxtNombre() {
         return txtNombre;
     }
-
+    
     public void setTxtNombre(JTextField txtNombre) {
         this.txtNombre = txtNombre;
+    }
+    
+    public JTextField getTxtCarCod() {
+        return txtCarCod;
+    }
+    
+    public void setTxtCarCod(JTextField txtCarCod) {
+        this.txtCarCod = txtCarCod;
     }
 
     /**
@@ -47,6 +54,8 @@ public class EditarCarrera extends javax.swing.JFrame {
      */
     public EditarCarrera() {
         initComponents();
+        txtCarCod.setVisible(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -66,8 +75,9 @@ public class EditarCarrera extends javax.swing.JFrame {
         txtDuracion = new javax.swing.JTextField();
         btnGuardarCambios = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtCarCod = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,10 +103,15 @@ public class EditarCarrera extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addGap(131, 131, 131))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(txtCarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -108,9 +123,15 @@ public class EditarCarrera extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1)
-                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel1)
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtCarCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,6 +203,7 @@ public class EditarCarrera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCarCod;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
