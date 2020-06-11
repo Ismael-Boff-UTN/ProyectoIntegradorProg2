@@ -3,17 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorProfesores.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/ProfesorDAO.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/EditarProfesor.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorInscripciones.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/EditarCursado.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorCarreras.java</file>
             <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorAlumnos.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/MateriaDAO.java</file>
             <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorMenuPrincipal.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Alumno.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/Conexion.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Profesor.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/PanelProfesores.java</file>
-            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/PanelAlumnos.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Materia.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/EditarCarrera.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/PanelMaterias.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/main.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/AgregarMateria.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/AgregarInscripcion.java</file>
             <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/AlumnoDAO.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorProfesores.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/AgregarCarrera.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Alumno.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Inscripcion.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/controller/ControladorMaterias.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/CarreraDAO.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/dao/InscripcionDAO.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/view/EditarMateria.java</file>
+            <file>file:/C:/Users/SkylakeFrost/Documents/Github%20Sync/ProyectoIntegradorProg2/src/com/sky/pi/model/Carrera.java</file>
         </group>
     </open-files>
 </project-private>

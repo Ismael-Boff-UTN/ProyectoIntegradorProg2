@@ -83,15 +83,16 @@ public class ControladorMenuPrincipal implements ActionListener {
             menu.getSelectMat().setVisible(false);
             menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Inscripciones");
+
             panelInscripciones();
 
             ci.clearTable();
-            //ci.cargarComboBox();
+
             ci.listarInscripciones(panelInscripciones.getTblInscripciones());
-           
+
         }
         if (e.getSource() == menu.getBtnListaProfesores()) {
-            // panelAlumnos.dispatchEvent(e);
+
             menu.getSelectAlumnos().setVisible(false);
             menu.getSelectCarrera().setVisible(false);
             menu.getSelectCursado().setVisible(false);

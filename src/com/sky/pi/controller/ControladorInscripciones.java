@@ -38,10 +38,8 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
         this.panelInscripciones = panelInscripciones;
         this.menu = menu;
         //Cargo Los Combobox
-        //this.cargarComboBox();
+        //cargarComboBox();
         //Listeners Para Cuando Se Selecciona Un Item En Los ComboBox
-        this.agregarInscripcion.getCbxCarreras().addItemListener(this);
-        this.agregarInscripcion.getCbxAlumnos().addItemListener(this);
 
         this.panelInscripciones.getBtnNuevaInscripcion().addActionListener(this);
         this.panelInscripciones.getBtnEditar().addActionListener(this);
@@ -55,10 +53,16 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
     public ControladorInscripciones() {
     }
 
+    public void listenBox() {
+        this.agregarInscripcion.getCbxCarreras().addItemListener(this);
+        this.agregarInscripcion.getCbxAlumnos().addItemListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panelInscripciones.getBtnNuevaInscripcion()) {
             cargarComboBox();
+            listenBox();
             agregarInscripcion.setVisible(true);
 
         }
@@ -133,6 +137,8 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
     public void cargarComboBox() {
 
         List<Alumno> listaAlumnos = alumno.readlumnos();
+        List<Carrera> listaCarreras = carrera.readCarrera();
+
         agregarInscripcion.getCbxAlumnos().removeAllItems();
         agregarInscripcion.getCbxAlumnos().addItem("Seleccionar Alumno");
         for (int i = 0; i < listaAlumnos.size(); i++) {
@@ -140,7 +146,6 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
                     + " " + listaAlumnos.get(i).getApellido());
         }
 
-        List<Carrera> listaCarreras = carrera.readCarrera();
         agregarInscripcion.getCbxCarreras().removeAllItems();
         agregarInscripcion.getCbxCarreras().addItem("Seleccionar Carrera");
 
