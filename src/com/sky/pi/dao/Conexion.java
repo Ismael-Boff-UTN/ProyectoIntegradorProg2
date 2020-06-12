@@ -16,11 +16,11 @@ public class Conexion {
     Se Requiere La Libreria/Conector MySQL Importado.
      */
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATA_BASE = "sgaprog2";
+    private static final String DATA_BASE = "sql3347948";
     private static final String SSL = "?useSSL=false";
-    private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "1234";
+    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/";
+    private static final String USER_NAME = "sql3347948";
+    private static final String PASSWORD = "";
 
     public static Connection getConnection() {
         Connection conexion = null;

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author SkylakeFrost
  */
-public class ControladorInscripciones implements ActionListener, ItemListener {
+public class ControladorInscripciones implements ActionListener {
 
     private Inscripcion inscripcion = new Inscripcion();
 
@@ -53,16 +53,11 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
     public ControladorInscripciones() {
     }
 
-    public void listenBox() {
-        this.agregarInscripcion.getCbxCarreras().addItemListener(this);
-        this.agregarInscripcion.getCbxAlumnos().addItemListener(this);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panelInscripciones.getBtnNuevaInscripcion()) {
             cargarComboBox();
-            listenBox();
+
             agregarInscripcion.setVisible(true);
 
         }
@@ -90,7 +85,7 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
             if (revisarCampos() == true) {
                 inscripcion = new Inscripcion(
                         Integer.valueOf(agregarInscripcion.getTxtCodigoInscripcion().getText()),
-                        String.valueOf(agregarInscripcion.getCbxAlumnos().getSelectedItem()),
+                        splitearAlumno2(agregarInscripcion.getCbxAlumnos().getSelectedItem().toString()),
                         Date.valueOf(convertirFecha(agregarInscripcion.getDateChooserCombo().getText())),
                         splitearCarrera(agregarInscripcion.getCbxCarreras().getSelectedItem().toString())
                 );
@@ -136,23 +131,18 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
     //Carga De ComboBoxes
     public void cargarComboBox() {
 
-        List<Alumno> listaAlumnos = alumno.readlumnos();
-        List<Carrera> listaCarreras = carrera.readCarrera();
-
         agregarInscripcion.getCbxAlumnos().removeAllItems();
         agregarInscripcion.getCbxAlumnos().addItem("Seleccionar Alumno");
-        for (int i = 0; i < listaAlumnos.size(); i++) {
-            agregarInscripcion.getCbxAlumnos().addItem(String.valueOf(listaAlumnos.get(i).getDni()) + " - " + listaAlumnos.get(i).getNombre()
-                    + " " + listaAlumnos.get(i).getApellido());
+        for (int i = 0; i < alumno.readlumnos().size(); i++) {
+            agregarInscripcion.getCbxAlumnos().addItem(String.valueOf(alumno.readlumnos().get(i).getDni()) + " - " + alumno.readlumnos().get(i).getNombre()
+                    + " " + alumno.readlumnos().get(i).getApellido());
         }
-
         agregarInscripcion.getCbxCarreras().removeAllItems();
         agregarInscripcion.getCbxCarreras().addItem("Seleccionar Carrera");
 
-        for (int i = 0; i < listaCarreras.size(); i++) {
-            agregarInscripcion.getCbxCarreras().addItem(String.valueOf(listaCarreras.get(i).getCodigoCarrera() + " - " + listaCarreras.get(i).getNombre()));
+        for (int i = 0; i < carrera.readCarrera().size(); i++) {
+            agregarInscripcion.getCbxCarreras().addItem(String.valueOf(carrera.readCarrera().get(i).getCodigoCarrera() + " - " + carrera.readCarrera().get(i).getNombre()));
         }
-
     }
 
     public String convertirFecha(String fechaDDMMYYYY) {
@@ -181,8 +171,16 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
         return Integer.valueOf(part1);
     }
 
+    public String splitearAlumno2(String alumnoDniNombre) {
+        String[] parts = alumnoDniNombre.split(" - ");
+        String part1 = parts[1]; //Nombre
+
+        return part1;
+    }
+
     //Se Listan Las Incripciones En La JTable
     public void listarInscripciones(JTable table) {
+
         modelo = (DefaultTableModel) panelInscripciones.getTblInscripciones().getModel();
         panelInscripciones.getTblInscripciones().setRowHeight(30);
         List<Inscripcion> lista = inscripcion.readInscripciones();
@@ -204,26 +202,6 @@ public class ControladorInscripciones implements ActionListener, ItemListener {
         for (int i = 0; i < panelInscripciones.getTblInscripciones().getRowCount(); i++) {
             modelo.removeRow(i);
             i -= 1;
-        }
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        if (e.getItemSelectable().equals(agregarInscripcion.getCbxCarreras()) && !agregarInscripcion.getCbxCarreras().getSelectedItem().equals("Seleccionar Carrera")) {
-
-            //Se Obtiene El Codigo De La Carrera
-            int idCarrera = splitearCarrera(agregarInscripcion.getCbxCarreras().getSelectedItem().toString());
-            //Usando Ese Codigo Busco La Carrera En La Base De Datos
-            Carrera car = carrera.findCarrera(idCarrera);
-            //Seteo El Nombre De La Carrera En Cuestion Al JTextField
-            agregarInscripcion.getTxtNombreCarrera().setText(car.getDuracion());
-
-        } else if (e.getItemSelectable().equals(agregarInscripcion.getCbxAlumnos()) && !agregarInscripcion.getCbxAlumnos().getSelectedItem().equals("Seleccionar Alumno")) {
-            //Lo Mismo Se Realiza Para Los Alumnos
-            int dniAlumno = splitearAlumno(agregarInscripcion.getCbxAlumnos().getSelectedItem().toString());
-            Alumno al = alumno.findAlumno(dniAlumno);
-            agregarInscripcion.getTxtNombreAlumno().setText(String.valueOf(al.getTelefono()));
-
         }
     }
 

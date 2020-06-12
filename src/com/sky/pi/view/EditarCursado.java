@@ -60,6 +60,8 @@ public class EditarCursado extends javax.swing.JFrame {
      */
     public EditarCursado() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**
@@ -89,7 +91,7 @@ public class EditarCursado extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
-        jLabel1.setText("Agregar Nota De Cursado");
+        jLabel1.setText("Editar Nota De Cursado");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -113,10 +115,6 @@ public class EditarCursado extends javax.swing.JFrame {
         jLabel3.setText("Materia");
 
         jLabel4.setText("Nota");
-
-        cbxAlumnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbxMaterias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAgregar.setText("Agregar");
 

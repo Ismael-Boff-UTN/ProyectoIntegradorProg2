@@ -184,6 +184,7 @@ public class EditarAlumno extends javax.swing.JFrame {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
+    dateChooser.setFormat(2);
     try {
         dateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2020, 5, 11),
             new java.util.GregorianCalendar(2020, 5, 11))));

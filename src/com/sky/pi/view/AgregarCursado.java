@@ -60,6 +60,8 @@ public class AgregarCursado extends javax.swing.JFrame {
      */
     public AgregarCursado() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**
@@ -113,10 +115,6 @@ public class AgregarCursado extends javax.swing.JFrame {
         jLabel3.setText("Materia");
 
         jLabel4.setText("Nota");
-
-        cbxAlumnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbxMaterias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAgregar.setText("Agregar");
 

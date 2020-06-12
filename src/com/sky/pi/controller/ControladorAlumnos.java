@@ -173,17 +173,29 @@ public class ControladorAlumnos implements ActionListener {
         }
 
     }
-
+                                        //13-06-1998
     public String convertirFecha(String fechaDDMMYYYY) {
 
         String[] parts = fechaDDMMYYYY.split("-");
-        String part1 = parts[0]; // Año
-        String part2 = parts[1]; // Mes
-        String part3 = parts[2]; //Dia
+        String dia = parts[0]; // Año
+        String mes = parts[1]; // Mes
+        String anio = parts[2]; //Dia
 
-        String fechaYYYYMMDD = part3 + "-" + part2 + "-" + part1;
+        String fechaYYYYMMDD = anio + "-" + mes + "-" + dia;
 
         return fechaYYYYMMDD;
+    }
+                                         //1998-06-13
+    public String convertirFecha2(String fechaYYYYMMDD) {
+
+        String[] parts = fechaYYYYMMDD.split("-");
+        String anio = parts[0]; 
+        String mes = parts[1]; 
+        String dia = parts[2]; 
+
+        String fechaDDMMYYYY = dia+ "-" + mes + "-" + anio;
+
+        return fechaDDMMYYYY;
     }
 
     public boolean validarCampos() {

@@ -33,6 +33,7 @@ public class ControladorMenuPrincipal implements ActionListener {
     private ControladorInscripciones ci = new ControladorInscripciones(menu, panelInscripciones);
     private ControladorProfesores cp = new ControladorProfesores(menu, panelProfesores);
     private ControladorMaterias cm = new ControladorMaterias(menu, panelMaterias);
+    private ControladorCursados cur = new ControladorCursados(menu, panelCursados);
 
     @SuppressWarnings("LeakingThisInConstructor")
     public ControladorMenuPrincipal(Menu menu) {
@@ -127,6 +128,8 @@ public class ControladorMenuPrincipal implements ActionListener {
             menu.getSelectProf().setVisible(false);
             menu.getLblMainTitle().setText("Lista De Cursados");
             panelCursados();
+            cur.clearTable();
+            cur.listarCursados(panelCursados.getTblCursados());
         }
     }
 

@@ -73,4 +73,14 @@ public class Cursado {
         return cursadoDAO.find(idCursado);
     }
 
+    public boolean validarNota(double nota) {
+        if (nota >= 1.0 && nota <= 10.0) {
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }
