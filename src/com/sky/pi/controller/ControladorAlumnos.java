@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -55,6 +56,7 @@ public class ControladorAlumnos implements ActionListener {
             cargarVistaEditar();
 
         } else if (e.getSource() == agregarAlumno.getBtnAgregar()) {
+           
             agregar();
         } else if (e.getSource() == agregarAlumno.getBtnCancelar()) {
             agregarAlumno.dispose();
@@ -93,17 +95,19 @@ public class ControladorAlumnos implements ActionListener {
     }
 
     public void agregar() {
+        
         if (validarCampos() == false) {
             JOptionPane.showMessageDialog(null, "Todos Los Campos Deben Estar Completos!");
+         
         } else {
 
             alumno = new Alumno(
                     Integer.valueOf(agregarAlumno.getTxtDni().getText()),
                     agregarAlumno.getTxtNombre().getText(),
                     agregarAlumno.getTxtApellido().getText(),
-                    Date.valueOf(convertirFecha(agregarAlumno.getDateChooser().getText())),
+                    Date.valueOf(agregarAlumno.getDateChooser().getText()),
                     agregarAlumno.getTxtDomicilio().getText(),
-                    Integer.valueOf(agregarAlumno.getTxtTelefono().getText())
+                    agregarAlumno.getTxtTelefono().getText()
             );
 
             if (alumno.createAlumno(alumno) == true) {
@@ -111,10 +115,12 @@ public class ControladorAlumnos implements ActionListener {
                 clearTable();
                 listarAlumnos(panelAlumnos.getTblAlumnos());
                 JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
+                
                 agregarAlumno.dispose();
 
             } else {
                 JOptionPane.showMessageDialog(null, "ERROR");
+              
             }
         }
     }
@@ -140,9 +146,9 @@ public class ControladorAlumnos implements ActionListener {
         int dni = Integer.valueOf(editarAlumno.getTxtDni().getText());
         String nombre = editarAlumno.getTxtNombre().getText();
         String apellido = editarAlumno.getTxtApellido().getText();
-        Date fechaNacimiento = Date.valueOf(convertirFecha(editarAlumno.getDateChooser().getText()));
+        Date fechaNacimiento = Date.valueOf(editarAlumno.getDateChooser().getText());
         String domicilio = editarAlumno.getTxtDomicilio().getText();
-        int telefono = Integer.valueOf(editarAlumno.getTxtTelefono().getText());
+        String telefono = editarAlumno.getTxtTelefono().getText();
 
         alumno = new Alumno(dni, nombre, apellido, fechaNacimiento, domicilio, telefono);
 
@@ -166,36 +172,14 @@ public class ControladorAlumnos implements ActionListener {
             editarAlumno.getTxtDni().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 0).toString());
             editarAlumno.getTxtNombre().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 1).toString());
             editarAlumno.getTxtApellido().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 2).toString());
+
             editarAlumno.getDateChooser().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 3).toString());
+
             editarAlumno.getTxtDomicilio().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 4).toString());
             editarAlumno.getTxtTelefono().setText(panelAlumnos.getTblAlumnos().getValueAt(fila, 5).toString());
             editarAlumno.setVisible(true);
         }
 
-    }
-                                        //13-06-1998
-    public String convertirFecha(String fechaDDMMYYYY) {
-
-        String[] parts = fechaDDMMYYYY.split("-");
-        String dia = parts[0]; // Año
-        String mes = parts[1]; // Mes
-        String anio = parts[2]; //Dia
-
-        String fechaYYYYMMDD = anio + "-" + mes + "-" + dia;
-
-        return fechaYYYYMMDD;
-    }
-                                         //1998-06-13
-    public String convertirFecha2(String fechaYYYYMMDD) {
-
-        String[] parts = fechaYYYYMMDD.split("-");
-        String anio = parts[0]; 
-        String mes = parts[1]; 
-        String dia = parts[2]; 
-
-        String fechaDDMMYYYY = dia+ "-" + mes + "-" + anio;
-
-        return fechaDDMMYYYY;
     }
 
     public boolean validarCampos() {

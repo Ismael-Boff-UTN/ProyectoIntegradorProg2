@@ -21,6 +21,15 @@ public class Conexion {
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "1234";
+    
+    
+     //Base De Datos Remota
+//    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+//    private static final String DATA_BASE = "sql3347948";
+//    private static final String SSL = "?useSSL=false";
+//    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/";
+//    private static final String USER_NAME = "sql3347948";
+//    private static final String PASSWORD = "zBTKqQ6NgW";
 
     public static Connection getConnection() {
         Connection conexion = null;

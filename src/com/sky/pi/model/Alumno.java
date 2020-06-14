@@ -15,11 +15,11 @@ public class Alumno {
     private String apellido;
     private Date fechaNacimiento;
     private String domicilio;
-    private int telefono;
+    private String telefono;
     private int codigoInscripcion;
     private AlumnoDAO alumnoDAO = new AlumnoDAO();
 
-    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono, int codigoInscripcion) {
+    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, String telefono, int codigoInscripcion) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,7 +30,7 @@ public class Alumno {
 
     }
 
-    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono) {
+    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, String telefono) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -89,11 +89,11 @@ public class Alumno {
         this.domicilio = domicilio;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

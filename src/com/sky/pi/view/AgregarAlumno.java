@@ -2,6 +2,7 @@ package com.sky.pi.view;
 
 import datechooser.beans.DateChooserCombo;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -9,8 +10,6 @@ import javax.swing.JTextField;
  * @author SkylakeFrost
  */
 public class AgregarAlumno extends javax.swing.JFrame {
-
-    
 
     public JButton getBtnAgregar() {
         return btnAgregar;
@@ -81,6 +80,7 @@ public class AgregarAlumno extends javax.swing.JFrame {
      */
     public AgregarAlumno() {
         initComponents();
+
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -186,15 +186,18 @@ public class AgregarAlumno extends javax.swing.JFrame {
                 (datechooser.view.BackRenderer)null,
                 false,
                 true)));
+    dateChooser.setNothingAllowed(false);
     dateChooser.setFormat(2);
+    dateChooser.setWeekStyle(datechooser.view.WeekDaysStyle.SHORT);
     try {
         dateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2020, 5, 11),
             new java.util.GregorianCalendar(2020, 5, 11))));
 } catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
     e1.printStackTrace();
     }
-    dateChooser.setLocale(new java.util.Locale("es", "BO", ""));
+    dateChooser.setLocale(new java.util.Locale("lt", "", ""));
 
+    btnAgregar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
     btnAgregar.setText("Agregar");
 
     btnCancelar.setText("Cancelar");
@@ -243,7 +246,7 @@ public class AgregarAlumno extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(18, 18, 18)
                     .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jLabel6)
                 .addComponent(jLabel5))
@@ -254,10 +257,10 @@ public class AgregarAlumno extends javax.swing.JFrame {
             .addGap(25, 25, 25))
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addGap(159, 159, 159)
-            .addComponent(btnAgregar)
-            .addGap(146, 146, 146)
-            .addComponent(btnCancelar)
-            .addContainerGap(273, Short.MAX_VALUE))
+            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(68, 68, 68)
+            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     jPanel1Layout.setVerticalGroup(
@@ -284,10 +287,13 @@ public class AgregarAlumno extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel4)
                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnAgregar)
-                .addComponent(btnCancelar))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(36, 36, 36)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGap(61, 61, 61))
     );
 

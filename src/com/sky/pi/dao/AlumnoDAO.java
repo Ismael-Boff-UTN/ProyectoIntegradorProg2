@@ -17,7 +17,7 @@ public class AlumnoDAO extends Conexion {
     private final String SQL_INSERT = "INSERT INTO alumno (alu_dni, alu_nombre,alu_apellido,alu_fec_nac,alu_domicilio, alu_telefono) VALUES (?,?,?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM alumno";
     private final String SQL_DELETE = "DELETE FROM alumno WHERE alu_dni=?";
-    private final String SQL_UPDATE = "UPDATE alumno SET alu_nombre=?,alu_apellido=?,alu_fec_nac=?, alu_domicilio=?,alu_telefono=?,alu_insc_cod=? WHERE alu_dni=?";
+    private final String SQL_UPDATE = "UPDATE alumno SET alu_nombre=?,alu_apellido=?,alu_fec_nac=?, alu_domicilio=?,alu_telefono=? WHERE alu_dni=?";
     private final String SQL_UPDATE_CARRERA = "UPDATE alumno SET alu_insc_cod=? WHERE alu_dni=?";
     private final String SQL_FIND = "SELECT * FROM alumno WHERE alu_dni=?";
 
@@ -38,9 +38,8 @@ public class AlumnoDAO extends Conexion {
             ps.setString(3, alumno.getApellido());
             ps.setDate(4, alumno.getFechaNacimiento());
             ps.setString(5, alumno.getDomicilio());
-            ps.setInt(6, alumno.getTelefono());
-            //ps.setString(7, alumno.getCodigoInscripcion());
-
+            ps.setString(6, alumno.getTelefono());
+            
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
             Manipulation Language) como son las sentencias insert, update y delete. También
@@ -88,7 +87,7 @@ public class AlumnoDAO extends Conexion {
                 alumno.setApellido(rs.getString(3));
                 alumno.setFechaNacimiento(rs.getDate(4));
                 alumno.setDomicilio(rs.getString(5));
-                alumno.setTelefono(rs.getInt(6));
+                alumno.setTelefono(rs.getString(6));
                 alumno.setCodigoInscripcion(rs.getInt(7));
 
                 listaAlumnos.add(alumno);
@@ -119,10 +118,10 @@ public class AlumnoDAO extends Conexion {
             ps.setString(2, alumno.getApellido());
             ps.setDate(3, alumno.getFechaNacimiento());
             ps.setString(4, alumno.getDomicilio());
-            ps.setInt(5, alumno.getTelefono());
-            ps.setInt(6, alumno.getCodigoInscripcion());
+            ps.setString(5, alumno.getTelefono());
+            
 
-            ps.setInt(7, alumno.getDni());
+            ps.setInt(6, alumno.getDni());
             ps.executeUpdate();
             System.out.println("Actualizado Con Exito");
             return true;
@@ -213,7 +212,7 @@ public class AlumnoDAO extends Conexion {
                 alumno.setApellido(rs.getString(3));
                 alumno.setFechaNacimiento(rs.getDate(4));
                 alumno.setDomicilio(rs.getString(5));
-                alumno.setTelefono(rs.getInt(6));
+                alumno.setTelefono(rs.getString(6));
                 alumno.setCodigoInscripcion(rs.getInt(7));
             }
 

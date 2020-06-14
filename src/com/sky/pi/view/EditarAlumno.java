@@ -137,6 +137,8 @@ public class EditarAlumno extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel6.setText("Domicilio");
 
+        txtDni.setEditable(false);
+
         txtDomicilio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDomicilioActionPerformed(evt);
@@ -185,13 +187,7 @@ public class EditarAlumno extends javax.swing.JFrame {
                 false,
                 true)));
     dateChooser.setFormat(2);
-    try {
-        dateChooser.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2020, 5, 11),
-            new java.util.GregorianCalendar(2020, 5, 11))));
-} catch (datechooser.model.exeptions.IncompatibleDataExeption e1) {
-    e1.printStackTrace();
-    }
-    dateChooser.setLocale(new java.util.Locale("es", "BO", ""));
+    dateChooser.setLocale(new java.util.Locale("lt", "", ""));
 
     btnEditar.setText("Agregar");
 
