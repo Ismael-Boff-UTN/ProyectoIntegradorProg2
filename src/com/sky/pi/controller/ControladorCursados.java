@@ -75,7 +75,7 @@ public class ControladorCursados implements ActionListener {
             cursado = new Cursado(
                     splitearString(agregarCursado.getCbxAlumnos().getSelectedItem().toString()),
                     splitearString(agregarCursado.getCbxMaterias().getSelectedItem().toString()),
-                    Integer.valueOf(agregarCursado.getTxtNota().getText())
+                    Double.valueOf(agregarCursado.getTxtNota().getText())
             );
             if (cursado.createCursado(cursado) == true) {
 
