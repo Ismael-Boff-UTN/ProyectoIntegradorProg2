@@ -123,6 +123,7 @@ public class ControladorMaterias implements ActionListener {
     }
 
     public void cargarVistaEditar() {
+        cargarComboBoxProfesores();
         int fila = panelMaterias.getTblMaterias().getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");

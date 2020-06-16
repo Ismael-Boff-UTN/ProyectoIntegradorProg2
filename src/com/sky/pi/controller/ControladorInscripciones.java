@@ -4,6 +4,7 @@ import com.sky.pi.model.Alumno;
 import com.sky.pi.model.Carrera;
 import com.sky.pi.model.Inscripcion;
 import com.sky.pi.view.AgregarInscripcion;
+import com.sky.pi.view.EditarInscripcion;
 import com.sky.pi.view.Menu;
 import com.sky.pi.view.PanelInscripciones;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ public class ControladorInscripciones implements ActionListener {
     private Carrera carrera = new Carrera();
 
     private AgregarInscripcion agregarInscripcion = new AgregarInscripcion();
+    private EditarInscripcion editarInscripcion = new EditarInscripcion();
     private PanelInscripciones panelInscripciones;
     private DefaultTableModel modelo;
     private Menu menu;
@@ -46,6 +48,8 @@ public class ControladorInscripciones implements ActionListener {
         this.agregarInscripcion.getBtnInscribir().addActionListener(this);
         this.agregarInscripcion.getBtnCancelar().addActionListener(this);
 
+        this.editarInscripcion.getBtnInscribir().addActionListener(this);
+        this.editarInscripcion.getBtnCancelar().addActionListener(this);
     }
 
     public ControladorInscripciones() {
@@ -55,22 +59,22 @@ public class ControladorInscripciones implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == panelInscripciones.getBtnNuevaInscripcion()) {
             cargarComboBox();
-
             agregarInscripcion.setVisible(true);
-
-        }
-        if (e.getSource() == agregarInscripcion.getBtnCancelar()) {
+        } else if (e.getSource() == agregarInscripcion.getBtnCancelar()) {
             agregarInscripcion.dispose();
-        }
-        if (e.getSource() == agregarInscripcion.getBtnInscribir()) {
+        } else if (e.getSource() == agregarInscripcion.getBtnInscribir()) {
             agregar();
-        }
-        if (e.getSource() == panelInscripciones.getBtnEliminar()) {
+        } else if (e.getSource() == panelInscripciones.getBtnEliminar()) {
             eliminar();
+        } else if (e.getSource() == panelInscripciones.getBtnEditar()) {
+
+            cargarVistaEditar();
+        } else if (e.getSource() == editarInscripcion.getBtnInscribir()) {
+            editar();
+        } else if (e.getSource() == editarInscripcion.getBtnCancelar()) {
+            editarInscripcion.dispose();
         }
-        if (e.getSource() == panelInscripciones.getBtnEditar()) {
-            //TODO
-        }
+
     }
 
     //Funcion De Boton Agregar
@@ -126,6 +130,37 @@ public class ControladorInscripciones implements ActionListener {
         }
     }
 
+    public void editar() {
+        int inscCod = Integer.valueOf(editarInscripcion.getTxtCodigoInscripcion().getText());
+        String nombre = splitearAlumno2(editarInscripcion.getCbxAlumnos().getSelectedItem().toString());
+        Date fecha = Date.valueOf(editarInscripcion.getDateChooserCombo().getText());
+        int carCod = splitearCarrera(editarInscripcion.getCbxCarreras().getSelectedItem().toString());
+
+        inscripcion = new Inscripcion(inscCod, nombre, fecha, carCod);
+
+        if (inscripcion.updateInscripcion(inscripcion) == true) {
+            clearTable();
+            listarInscripciones(panelInscripciones.getTblInscripciones());
+            JOptionPane.showMessageDialog(null, "Editado Con Exito");
+            editarInscripcion.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
+        }
+    }
+
+    public void cargarVistaEditar() {
+        cargarComboBoxEditar();
+        int fila = panelInscripciones.getTblInscripciones().getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");
+        } else {
+            editarInscripcion.getTxtCodigoInscripcion().setText(panelInscripciones.getTblInscripciones().getValueAt(fila, 0).toString());
+
+            editarInscripcion.setVisible(true);
+        }
+    }
+
     //Carga De ComboBoxes
     public void cargarComboBox() {
 
@@ -140,6 +175,22 @@ public class ControladorInscripciones implements ActionListener {
 
         for (int i = 0; i < carrera.readCarrera().size(); i++) {
             agregarInscripcion.getCbxCarreras().addItem(String.valueOf(carrera.readCarrera().get(i).getCodigoCarrera() + " - " + carrera.readCarrera().get(i).getNombre()));
+        }
+    }
+
+    public void cargarComboBoxEditar() {
+
+        editarInscripcion.getCbxAlumnos().removeAllItems();
+        editarInscripcion.getCbxAlumnos().addItem("Seleccionar Alumno");
+        for (int i = 0; i < alumno.readlumnos().size(); i++) {
+            editarInscripcion.getCbxAlumnos().addItem(String.valueOf(alumno.readlumnos().get(i).getDni()) + " - " + alumno.readlumnos().get(i).getNombre()
+                    + " " + alumno.readlumnos().get(i).getApellido());
+        }
+        editarInscripcion.getCbxCarreras().removeAllItems();
+        editarInscripcion.getCbxCarreras().addItem("Seleccionar Carrera");
+
+        for (int i = 0; i < carrera.readCarrera().size(); i++) {
+            editarInscripcion.getCbxCarreras().addItem(String.valueOf(carrera.readCarrera().get(i).getCodigoCarrera() + " - " + carrera.readCarrera().get(i).getNombre()));
         }
     }
 

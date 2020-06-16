@@ -180,7 +180,7 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/sky/pi/images/dashboard.png"))); // NOI18N
-        jLabel1.setText("Administración");
+        jLabel1.setText("SGA2020-Prog2");
 
         btnListaProfesores.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnListaProfesores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/sky/pi/images/profesores.png"))); // NOI18N

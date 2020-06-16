@@ -24,7 +24,7 @@ public class InscripcionDAO extends Conexion {
     private final String SQL_INSERT = "INSERT INTO inscripcion (insc_cod, insc_nombre, insc_fecha, insc_car_cod) VALUES (?,?,?,?)";
     private final String SQL_SELECT = "SELECT * FROM inscripcion";
     private final String SQL_DELETE = "DELETE FROM inscripcion WHERE insc_cod=?";
-    private final String SQL_UPDATE = "UPDATE inscripcion SET insc_nombre=?,insc_fecha=?, insc_car_cod WHERE insc_cod=?";
+    private final String SQL_UPDATE = "UPDATE inscripcion SET insc_nombre=?,insc_fecha=?, insc_car_cod=? WHERE insc_cod=?";
 
     public boolean create(Inscripcion inscripcion) {
         PreparedStatement ps = null;
@@ -37,7 +37,7 @@ public class InscripcionDAO extends Conexion {
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareStatement(SQL_INSERT);
-            
+
             ps.setInt(1, inscripcion.getCodigoInscripcion());
             ps.setString(2, inscripcion.getNombre());
             ps.setDate(3, inscripcion.getFecha());
