@@ -157,7 +157,7 @@ public class EditarProfesor extends javax.swing.JFrame {
         txtDni.setEditable(false);
 
         dateChooserCombo.setFormat(2);
-        dateChooserCombo.setLocale(new java.util.Locale("es", "BO", ""));
+        dateChooserCombo.setLocale(new java.util.Locale("lt", "", ""));
 
         btnGuardar.setText("Guardar");
 

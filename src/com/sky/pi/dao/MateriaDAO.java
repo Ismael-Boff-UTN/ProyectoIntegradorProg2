@@ -19,6 +19,7 @@ public class MateriaDAO extends Conexion {
     private final String SQL_SELECT = "SELECT * FROM materia";
     private final String SQL_DELETE = "DELETE FROM materia WHERE mat_cod=?";
     private final String SQL_UPDATE = "UPDATE materia SET mat_nombre =?, mat_prof_dni=? WHERE mat_cod=?";
+    private final String SQL_FIND = "SELECT * FROM materia WHERE mat_cod =?";
 
     public boolean create(Materia materia) {
         PreparedStatement ps = null;
@@ -147,5 +148,34 @@ public class MateriaDAO extends Conexion {
             Conexion.close(ps);
 
         }
+    }
+    
+     public boolean exist(int codMate) {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(SQL_FIND);
+            ps.setInt(1, codMate);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al Buscar : " + e);
+
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+
+        }
+
+        return false;
     }
 }

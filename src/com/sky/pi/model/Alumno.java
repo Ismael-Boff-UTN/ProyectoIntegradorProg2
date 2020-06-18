@@ -19,33 +19,6 @@ public class Alumno {
     private int codigoInscripcion;
     private AlumnoDAO alumnoDAO = new AlumnoDAO();
 
-    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, String telefono, int codigoInscripcion) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-        this.codigoInscripcion = codigoInscripcion;
-
-    }
-
-    public Alumno(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, String telefono) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-    }
-    
-    
-
-    public Alumno(int codigoInscripcion, int dni) {
-        this.codigoInscripcion = codigoInscripcion;
-        this.dni = dni;
-    }
-
     public Alumno() {
     }
 
@@ -132,6 +105,10 @@ public class Alumno {
 
     public boolean updateCarreraAlumno(Alumno alumno) {
         return alumnoDAO.updateCarrera(alumno);
+    }
+
+    public boolean alumnoExist(int dniAlumno) {
+        return alumnoDAO.exist(dniAlumno);
     }
 
 }

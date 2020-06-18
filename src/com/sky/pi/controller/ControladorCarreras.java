@@ -37,12 +37,9 @@ public class ControladorCarreras implements ActionListener {
 
         this.agregarCarrera.getBtnAgregar().addActionListener(this);
         this.agregarCarrera.getBtnCancelar().addActionListener(this);
-        
+
         this.editarCarrera.getBtnGuardarCambios().addActionListener(this);
         this.editarCarrera.getBtnCancelar().addActionListener(this);
-    }
-
-    public ControladorCarreras() {
     }
 
     @Override
@@ -67,17 +64,43 @@ public class ControladorCarreras implements ActionListener {
     }
 
     public void agregar() {
-        if (revisarCampos() == true) {
+        if (revisarCampos() == false) {
+            JOptionPane.showMessageDialog(null, "Campos Vacios");
+        } else if (carrera.carreraExist(Integer.valueOf(agregarCarrera.getTxtCodCarrera().getText()))) {
+            JOptionPane.showMessageDialog(null, "Carrera Con El Codigo " + agregarCarrera.getTxtCodCarrera().getText() + ", Ya Existe!");
+        } else {
 
-            carrera = new Carrera(Integer.valueOf(agregarCarrera.getTxtCodCarrera().getText()),
-                    agregarCarrera.getTxtNombre().getText(),
-                    agregarCarrera.getTxtDuracion().getText());
+            carrera.setCodigoCarrera(Integer.valueOf(agregarCarrera.getTxtCodCarrera().getText()));
+            carrera.setNombre(agregarCarrera.getTxtNombre().getText());
+            carrera.setDuracion(agregarCarrera.getTxtDuracion().getText());
 
             if (carrera.createCarrera(carrera) == true) {
                 clearTable();
                 listarCarreras(panelCarreras.getTblCarreras());
                 JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
                 agregarCarrera.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        }
+
+    }
+
+    public void editar() {
+
+        if (revisarCamposEditar() == false) {
+            JOptionPane.showMessageDialog(null, "Campos Vacios");
+        } else {
+
+            carrera.setCodigoCarrera(Integer.valueOf(editarCarrera.getTxtCarCod().getText()));
+            carrera.setNombre(editarCarrera.getTxtNombre().getText());
+            carrera.setDuracion(editarCarrera.getTxtDuracion().getText());
+
+            if (carrera.updateCarrera(carrera) == true) {
+                clearTable();
+                listarCarreras(panelCarreras.getTblCarreras());
+                JOptionPane.showMessageDialog(null, "Editado Con Exito!");
+                editarCarrera.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "ERROR");
             }
@@ -97,25 +120,6 @@ public class ControladorCarreras implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Eliminado!");
             }
 
-        }
-    }
-
-    public void editar() {
-
-        int carCod = Integer.valueOf(editarCarrera.getTxtCarCod().getText());
-        String nombre = editarCarrera.getTxtNombre().getText();
-        String duracion = editarCarrera.getTxtDuracion().getText();
-
-        carrera = new Carrera(carCod, nombre, duracion);
-
-        if (carrera.updateCarrera(carrera) == true) {
-            clearTable();
-            listarCarreras(panelCarreras.getTblCarreras());
-            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarCarrera.dispose();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
         }
     }
 
@@ -158,6 +162,15 @@ public class ControladorCarreras implements ActionListener {
     public boolean revisarCampos() {
         if (agregarCarrera.getTxtNombre().getText().isEmpty()
                 || agregarCarrera.getTxtDuracion().getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean revisarCamposEditar() {
+        if (editarCarrera.getTxtNombre().getText().isEmpty()
+                || editarCarrera.getTxtDuracion().getText().isEmpty()) {
             return false;
         } else {
             return true;

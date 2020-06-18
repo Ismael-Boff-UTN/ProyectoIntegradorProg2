@@ -17,12 +17,6 @@ public class Cursado {
     public Cursado() {
     }
 
-    public Cursado(int alumnoDni, int codigoMateria, double nota) {
-        this.alumnoDni = alumnoDni;
-        this.codigoMateria = codigoMateria;
-        this.nota = nota;
-    }
-
     public int getAlumnoDni() {
         return alumnoDni;
     }
@@ -71,16 +65,6 @@ public class Cursado {
     //BUSCAR
     public Cursado findCursado(int idCursado) {
         return cursadoDAO.find(idCursado);
-    }
-
-    public boolean validarNota(double nota) {
-        if (nota >= 1.0 && nota <= 10.0) {
-
-            return true;
-        } else {
-            return false;
-        }
-
     }
 
 }

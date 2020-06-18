@@ -39,7 +39,7 @@ public class AlumnoDAO extends Conexion {
             ps.setDate(4, alumno.getFechaNacimiento());
             ps.setString(5, alumno.getDomicilio());
             ps.setString(6, alumno.getTelefono());
-            
+
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
             Manipulation Language) como son las sentencias insert, update y delete. También
@@ -119,7 +119,6 @@ public class AlumnoDAO extends Conexion {
             ps.setDate(3, alumno.getFechaNacimiento());
             ps.setString(4, alumno.getDomicilio());
             ps.setString(5, alumno.getTelefono());
-            
 
             ps.setInt(6, alumno.getDni());
             ps.executeUpdate();
@@ -227,6 +226,35 @@ public class AlumnoDAO extends Conexion {
         }
 
         return alumno;
+    }
+
+    public boolean exist(int dniAlumno) {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(SQL_FIND);
+            ps.setInt(1, dniAlumno);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al Buscar : " + e);
+
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+
+        }
+
+        return false;
     }
 
 }

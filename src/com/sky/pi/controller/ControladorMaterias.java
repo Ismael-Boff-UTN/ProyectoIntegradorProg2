@@ -69,21 +69,50 @@ public class ControladorMaterias implements ActionListener {
 
     public void agregar() {
 
-        materia = new Materia(
-                Integer.valueOf(agregarMateria.getTxtCodMateria().getText()),
-                agregarMateria.getTxtNombre().getText(),
-                splitearProfe(agregarMateria.getCbxProfesores().getSelectedItem().toString())
-        );
-
-        if (materia.createMateria(materia) == true) {
-
-            clearTable();
-            listarMaterias(panelMaterias.getTblMaterias());
-            JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
-            agregarMateria.dispose();
-
+        if (camposVacios() == false) {
+            JOptionPane.showMessageDialog(null, "Campos Vacios!");
+        } else if (materia.materiaExist(Integer.valueOf(agregarMateria.getTxtCodMateria().getText())) == true) {
+            JOptionPane.showMessageDialog(null, "La Materia Con Codigo " + agregarMateria.getTxtCodMateria().getText() + " Ya Existe!");
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR");
+
+            materia.setCodMateria(Integer.valueOf(agregarMateria.getTxtCodMateria().getText()));
+            materia.setNombreMateria(agregarMateria.getTxtNombre().getText());
+            materia.setDniProfesor(splitearProfe(agregarMateria.getCbxProfesores().getSelectedItem().toString()));
+
+            if (materia.createMateria(materia) == true) {
+
+                clearTable();
+                listarMaterias(panelMaterias.getTblMaterias());
+                JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
+                agregarMateria.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        }
+
+    }
+
+    public void editar() {
+
+        if (camposVaciosEditar() == false) {
+            JOptionPane.showMessageDialog(null, "Campos Vacios!");
+        } else {
+
+            materia.setCodMateria(Integer.valueOf(editarMateria.getTxtMatCode().getText()));
+            materia.setNombreMateria(editarMateria.getTxtNombre().getText());
+            materia.setDniProfesor(splitearProfe(editarMateria.getCbcProfesores().getSelectedItem().toString()));
+
+            if (materia.updateMateria(materia) == true) {
+
+                clearTable();
+                listarMaterias(panelMaterias.getTblMaterias());
+                JOptionPane.showMessageDialog(null, "Editado Con Exito!");
+                editarMateria.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
         }
     }
 
@@ -100,25 +129,6 @@ public class ControladorMaterias implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Eliminado!");
             }
 
-        }
-    }
-
-    public void editar() {
-
-        int carCod = Integer.valueOf(editarMateria.getTxtMatCode().getText());
-        String nombre = editarMateria.getTxtNombre().getText();
-        int dniProf = splitearProfe(editarMateria.getCbcProfesores().getSelectedItem().toString());
-
-        materia = new Materia(carCod, nombre, dniProf);
-
-        if (materia.updateMateria(materia) == true) {
-            clearTable();
-            listarMaterias(panelMaterias.getTblMaterias());
-            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarMateria.dispose();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
         }
     }
 
@@ -140,13 +150,14 @@ public class ControladorMaterias implements ActionListener {
         List<Profesor> listaProfesores = profesorDAO.read();
 
         agregarMateria.getCbxProfesores().removeAllItems();
+        agregarMateria.getCbxProfesores().addItem("Seleccionar Profesor");
         for (int i = 0; i < listaProfesores.size(); i++) {
             agregarMateria.getCbxProfesores().addItem(listaProfesores.get(i).getDni() + " - " + listaProfesores.get(i).getNombre() + " " + listaProfesores.get(i).getApellido());
 
         }
 
         editarMateria.getCbcProfesores().removeAllItems();
-
+        agregarMateria.getCbxProfesores().addItem("Seleccionar Profesor");
         for (int i = 0; i < listaProfesores.size(); i++) {
             editarMateria.getCbcProfesores().addItem(listaProfesores.get(i).getDni() + " - " + listaProfesores.get(i).getNombre() + " " + listaProfesores.get(i).getApellido());
 
@@ -181,6 +192,26 @@ public class ControladorMaterias implements ActionListener {
         String part1 = parts[0]; // DNI
 
         return Integer.valueOf(part1);
+    }
+
+    public boolean camposVacios() {
+        if (agregarMateria.getTxtCodMateria().getText().isEmpty()
+                || agregarMateria.getTxtNombre().getText().isEmpty()
+                || agregarMateria.getCbxProfesores().getSelectedItem().equals("Seleccionar Profesor")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean camposVaciosEditar() {
+        if (editarMateria.getTxtMatCode().getText().isEmpty()
+                || editarMateria.getTxtNombre().getText().isEmpty()
+                || editarMateria.getCbcProfesores().getSelectedItem().equals("Seleccionar Profesor")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

@@ -12,14 +12,7 @@ public class Materia {
     private int codMateria;
     private String nombreMateria;
     private int dniProfesor;
-
     private MateriaDAO materiaDAO = new MateriaDAO();
-
-    public Materia(int codMateria, String nombreMateria, int dniProfesor) {
-        this.codMateria = codMateria;
-        this.nombreMateria = nombreMateria;
-        this.dniProfesor = dniProfesor;
-    }
 
     public Materia() {
     }
@@ -75,5 +68,9 @@ public class Materia {
     //DELETE
     public boolean deleteMateria(int idMateria) {
         return materiaDAO.delete(idMateria);
+    }
+
+    public boolean materiaExist(int codMate) {
+        return materiaDAO.exist(codMate);
     }
 }

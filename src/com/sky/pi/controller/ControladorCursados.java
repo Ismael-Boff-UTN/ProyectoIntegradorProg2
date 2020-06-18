@@ -23,6 +23,7 @@ public class ControladorCursados implements ActionListener {
     private Cursado cursado = new Cursado();
     private Alumno alumno = new Alumno();
     private Materia materia = new Materia();
+    private Validations val = new Validations();
     private AgregarCursado agregarCursado = new AgregarCursado();
     private EditarCursado editarCursado = new EditarCursado();
     private PanelCursados panelCursados;
@@ -71,12 +72,17 @@ public class ControladorCursados implements ActionListener {
     }
 
     public void agregar() {
-        if (cursado.validarNota(Integer.valueOf(agregarCursado.getTxtNota().getText())) == true) {
-            cursado = new Cursado(
-                    splitearString(agregarCursado.getCbxAlumnos().getSelectedItem().toString()),
-                    splitearString(agregarCursado.getCbxMaterias().getSelectedItem().toString()),
-                    Double.valueOf(agregarCursado.getTxtNota().getText())
-            );
+        if (revisarCampos() == false) {
+            JOptionPane.showMessageDialog(null, "Campos Vacios, Revise Alumno, Materia o Nota");
+        } else if (val.validarNota(Double.valueOf(agregarCursado.getTxtNota().getText())) == false) {
+            JOptionPane.showMessageDialog(null, "La Nota Debe Ser Un Valor Entre 1 y 10");
+        } else if (val.notaContieneLetras(agregarCursado.getTxtNota().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Nota Solo Puede Contener Numeros!");
+        } else {
+            cursado.setAlumnoDni(splitearString(agregarCursado.getCbxAlumnos().getSelectedItem().toString()));
+            cursado.setCodigoMateria(splitearString(agregarCursado.getCbxMaterias().getSelectedItem().toString()));
+            cursado.setNota(Double.valueOf(agregarCursado.getTxtNota().getText()));
+
             if (cursado.createCursado(cursado) == true) {
 
                 clearTable();
@@ -87,10 +93,32 @@ public class ControladorCursados implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "ERROR");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "La Nota Debe Ser Un Valor Entre 1 y 10");
         }
 
+    }
+
+    public void editar() {
+        if (val.validarNota(Double.valueOf(editarCursado.getTxtNota().getText())) == false) {
+            JOptionPane.showMessageDialog(null, "La Nota Debe Ser Un Valor Entre 1 y 10");
+        } else if (val.notaContieneLetras(editarCursado.getTxtNota().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Nota Solo Puede Contener Numeros!");
+        } else {
+
+            cursado.setAlumnoDni(splitearString(editarCursado.getCbxAlumnos().getSelectedItem().toString()));
+            cursado.setCodigoMateria(splitearString(editarCursado.getCbxMaterias().getSelectedItem().toString()));
+            cursado.setNota(Double.valueOf(editarCursado.getTxtNota().getText()));
+
+            if (cursado.updateCursado(cursado) == true) {
+
+                clearTable();
+                listarCursados(panelCursados.getTblCursados());
+                JOptionPane.showMessageDialog(null, "Nota Editada Con Exito!");
+                editarCursado.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        }
     }
 
     public void eliminar() {
@@ -106,24 +134,6 @@ public class ControladorCursados implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Eliminado!");
             }
 
-        }
-    }
-
-    public void editar() {
-        int alu = splitearString(editarCursado.getCbxAlumnos().getSelectedItem().toString());
-        int mat = splitearString(editarCursado.getCbxMaterias().getSelectedItem().toString());
-        double nota = Double.valueOf(editarCursado.getTxtNota().getText());
-
-        cursado = new Cursado(alu, mat, nota);
-
-        if (cursado.updateCursado(cursado) == true) {
-            clearTable();
-            listarCursados(panelCursados.getTblCursados());
-            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarCursado.dispose();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
         }
     }
 
@@ -213,6 +223,16 @@ public class ControladorCursados implements ActionListener {
         String part1 = parts[0];
 
         return Integer.valueOf(part1);
+    }
+
+    public boolean revisarCampos() {
+        if (agregarCursado.getCbxAlumnos().getSelectedItem().equals("Seleccionar Alumno")
+                || agregarCursado.getCbxMaterias().getSelectedItem().equals("Seleccionar Materia")
+                || agregarCursado.getTxtNota().getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

@@ -17,12 +17,6 @@ public class Carrera {
     public Carrera() {
     }
 
-    public Carrera(int codigoCarrera, String nombre, String duracion) {
-        this.codigoCarrera = codigoCarrera;
-        this.nombre = nombre;
-        this.duracion = duracion;
-    }
-
     public int getCodigoCarrera() {
         return codigoCarrera;
     }
@@ -67,9 +61,12 @@ public class Carrera {
     public boolean deleteCarrera(int idCarrera) {
         return carreraDAO.delete(idCarrera);
     }
-    
-    public Carrera findCarrera(int idCarrera){
+
+    public Carrera findCarrera(int idCarrera) {
         return carreraDAO.find(idCarrera);
     }
 
+    public boolean carreraExist(int codCarrera) {
+        return carreraDAO.exist(codCarrera);
+    }
 }

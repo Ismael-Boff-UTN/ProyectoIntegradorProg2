@@ -88,16 +88,16 @@ public class ControladorInscripciones implements ActionListener {
                 inscripcion = new Inscripcion(
                         Integer.valueOf(agregarInscripcion.getTxtCodigoInscripcion().getText()),
                         splitearAlumno2(agregarInscripcion.getCbxAlumnos().getSelectedItem().toString()),
-                        Date.valueOf(convertirFecha(agregarInscripcion.getDateChooserCombo().getText())),
+                        Date.valueOf(agregarInscripcion.getDateChooserCombo().getText()),
                         splitearCarrera(agregarInscripcion.getCbxCarreras().getSelectedItem().toString())
                 );
 
                 if (inscripcion.createInscripcion(inscripcion) == true) {
 
-                    alumno.updateCarreraAlumno(new Alumno(
-                            Integer.valueOf(agregarInscripcion.getTxtCodigoInscripcion().getText()),
-                            splitearAlumno(agregarInscripcion.getCbxAlumnos().getSelectedItem().toString()))
-                    );
+                    alumno.setCodigoInscripcion(Integer.valueOf(agregarInscripcion.getTxtCodigoInscripcion().getText()));
+                    alumno.setDni(splitearAlumno(agregarInscripcion.getCbxAlumnos().getSelectedItem().toString()));
+                    alumno.updateCarreraAlumno(alumno);
+
                     clearTable();
                     listarInscripciones(panelInscripciones.getTblInscripciones());
                     JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
@@ -192,18 +192,6 @@ public class ControladorInscripciones implements ActionListener {
         for (int i = 0; i < carrera.readCarrera().size(); i++) {
             editarInscripcion.getCbxCarreras().addItem(String.valueOf(carrera.readCarrera().get(i).getCodigoCarrera() + " - " + carrera.readCarrera().get(i).getNombre()));
         }
-    }
-
-    public String convertirFecha(String fechaDDMMYYYY) {
-
-        String[] parts = fechaDDMMYYYY.split("-");
-        String part1 = parts[0]; // Año
-        String part2 = parts[1]; // Mes
-        String part3 = parts[2]; //Dia
-
-        String fechaYYYYMMDD = part3 + "-" + part2 + "-" + part1;
-
-        return fechaYYYYMMDD;
     }
 
     public int splitearCarrera(String carreraIDNombre) {

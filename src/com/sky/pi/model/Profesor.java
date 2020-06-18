@@ -15,28 +15,10 @@ public class Profesor {
     private String apellido;
     private Date fechaNacimiento;
     private String domicilio;
-    private int telefono;
+    private String telefono;
     private ProfesorDAO profesorDAO = new ProfesorDAO();
 
     public Profesor() {
-    }
-
-    public Profesor(int dni, String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono) {
-
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
-    }
-
-    public Profesor(String nombre, String apellido, Date fechaNacimiento, String domicilio, int telefono) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.domicilio = domicilio;
-        this.telefono = telefono;
     }
 
     public int getDni() {
@@ -79,11 +61,11 @@ public class Profesor {
         this.domicilio = domicilio;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -106,5 +88,10 @@ public class Profesor {
     //DELETE
     public boolean deleteProfesor(int idProfesor) {
         return profesorDAO.delete(idProfesor);
+    }
+
+    //FIND
+    public boolean profesorExist(int dniProf) {
+        return profesorDAO.exist(dniProf);
     }
 }

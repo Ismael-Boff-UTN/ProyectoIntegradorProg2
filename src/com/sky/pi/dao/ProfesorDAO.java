@@ -20,6 +20,7 @@ public class ProfesorDAO extends Conexion {
     private final String SQL_SELECT = "SELECT * FROM profesor";
     private final String SQL_DELETE = "DELETE FROM profesor WHERE prof_dni=?";
     private final String SQL_UPDATE = "UPDATE profesor SET prof_nombre=?,prof_apellido=?,prof_fec_nac=?,prof_domicilio=?, prof_telefono=? WHERE prof_dni=?";
+    private final String SQL_FIND = "SELECT * FROM profesor WHERE prof_dni = ?";
 
     public boolean create(Profesor profesor) {
         PreparedStatement ps = null;
@@ -38,7 +39,7 @@ public class ProfesorDAO extends Conexion {
             ps.setString(3, profesor.getApellido());
             ps.setDate(4, profesor.getFechaNacimiento());
             ps.setString(5, profesor.getDomicilio());
-            ps.setInt(6, profesor.getTelefono());
+            ps.setString(6, profesor.getTelefono());
 
             ps.executeUpdate();
             /*El método executeUpdate se utiliza para ejecutar sentencias DML (Data
@@ -87,7 +88,7 @@ public class ProfesorDAO extends Conexion {
                 profesor.setApellido(rs.getString(3));
                 profesor.setFechaNacimiento(rs.getDate(4));
                 profesor.setDomicilio(rs.getString(5));
-                profesor.setTelefono(rs.getInt(6));
+                profesor.setTelefono(rs.getString(6));
 
                 listaProfesores.add(profesor);
 
@@ -117,7 +118,7 @@ public class ProfesorDAO extends Conexion {
             ps.setString(2, profesor.getApellido());
             ps.setDate(3, profesor.getFechaNacimiento());
             ps.setString(4, profesor.getDomicilio());
-            ps.setInt(5, profesor.getTelefono());
+            ps.setString(5, profesor.getTelefono());
 
             ps.setInt(6, profesor.getDni());
             ps.executeUpdate();
@@ -157,6 +158,35 @@ public class ProfesorDAO extends Conexion {
             Conexion.close(ps);
 
         }
+    }
+
+    public boolean exist(int dniProf) {
+
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareStatement(SQL_FIND);
+            ps.setInt(1, dniProf);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al Buscar : " + e);
+
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+
+        }
+
+        return false;
     }
 
 }

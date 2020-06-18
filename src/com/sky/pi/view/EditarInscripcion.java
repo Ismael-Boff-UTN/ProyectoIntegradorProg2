@@ -105,6 +105,7 @@ public class EditarInscripcion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        dateChooserCombo.setFormat(2);
         try {
             dateChooserCombo.setDefaultPeriods(new datechooser.model.multiple.PeriodSet(new datechooser.model.multiple.Period(new java.util.GregorianCalendar(2020, 5, 12),
                 new java.util.GregorianCalendar(2020, 5, 12))));

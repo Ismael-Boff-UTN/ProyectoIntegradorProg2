@@ -1,7 +1,5 @@
 package com.sky.pi.controller;
 
-import com.sky.pi.dao.ProfesorDAO;
-import com.sky.pi.model.Alumno;
 import com.sky.pi.model.Profesor;
 import com.sky.pi.view.AgregarProfesor;
 import com.sky.pi.view.EditarProfesor;
@@ -22,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorProfesores implements ActionListener {
 
     private Profesor profesor = new Profesor();
+    private Validations val = new Validations();
     private AgregarProfesor agregarProfesor = new AgregarProfesor();
     private EditarProfesor editarProfesor = new EditarProfesor();
     private PanelProfesores panelProfesores;
@@ -79,16 +78,24 @@ public class ControladorProfesores implements ActionListener {
     public void agregar() {
         if (validarCampos() == false) {
             JOptionPane.showMessageDialog(null, "Todos Los Campos Deben Estar Completos!");
+        } else if (validarTextoCampos() == false) {
+            JOptionPane.showMessageDialog(null, "Los Campos Nombre, Apellido Y Domicilio Pueden Tener Maximo 45 Caracteres!");
+        } else if (val.verificarDni(agregarProfesor.getTxtDni().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "DNI Debe Contener 8 Digitos");
+        } else if (val.verificarTelefono(agregarProfesor.getTxtTelefono().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Telefono Puede Contener Un Maximo De 12 Caracteres Alfanumericos");
+        } else if (val.dniContieneLetras(agregarProfesor.getTxtDni().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "DNI Solo Puede Contener Numeros!");
+        } else if (profesor.profesorExist(Integer.valueOf(agregarProfesor.getTxtDni().getText())) == true) {
+            JOptionPane.showMessageDialog(null, "El Profesor Con DNI : " + agregarProfesor.getTxtDni().getText() + " Ya Existe!");
         } else {
-
-            profesor = new Profesor(
-                    Integer.valueOf(agregarProfesor.getTxtDni().getText()),
-                    agregarProfesor.getTxtNombre().getText(),
-                    agregarProfesor.getTxtApellido().getText(),
-                    Date.valueOf(convertirFecha(agregarProfesor.getDateChooserCombo().getText())),
-                    agregarProfesor.getTxtDomicilio().getText(),
-                    Integer.valueOf(agregarProfesor.getTxtTelefono().getText())
-            );
+            //Se Crea El Profesor Luego De Las Validaciones
+            profesor.setDni(Integer.valueOf(agregarProfesor.getTxtDni().getText()));
+            profesor.setNombre(agregarProfesor.getTxtNombre().getText());
+            profesor.setApellido(agregarProfesor.getTxtApellido().getText());
+            profesor.setFechaNacimiento(Date.valueOf(agregarProfesor.getDateChooserCombo().getText()));
+            profesor.setDomicilio(agregarProfesor.getTxtDomicilio().getText());
+            profesor.setTelefono(agregarProfesor.getTxtTelefono().getText());
 
             if (profesor.createProfesor(profesor) == true) {
 
@@ -121,24 +128,33 @@ public class ControladorProfesores implements ActionListener {
 
     public void editar() {
 
-        int dni = Integer.valueOf(editarProfesor.getTxtDni().getText());
-        String nombre = editarProfesor.getTxtNombre().getText();
-        String apellido = editarProfesor.getTxtApellido().getText();
-        Date fechaNacimiento = Date.valueOf(convertirFecha(editarProfesor.getDateChooserCombo().getText()));
-        String domicilio = editarProfesor.getTxtDomicilio().getText();
-        int telefono = Integer.valueOf(editarProfesor.getTxtTelefono().getText());
-
-        profesor = new Profesor(dni, nombre, apellido, fechaNacimiento, domicilio, telefono);
-
-        if (profesor.updateProfesores(profesor) == true) {
-            clearTable();
-            listarProfesores(panelProfesores.getTblProfesores());
-            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarProfesor.dispose();
-
+        if (validarCamposEdicion() == false) {
+            JOptionPane.showMessageDialog(null, "Todos Los Campos Deben Estar Completos!");
+        } else if (validarTextoCamposEdicion() == false) {
+            JOptionPane.showMessageDialog(null, "Los Campos Nombre, Apellido Y Domicilio Pueden Tener Maximo 45 Caracteres!");
+        } else if (val.verificarTelefono(editarProfesor.getTxtTelefono().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Telefono Puede Contener Un Maximo De 12 Caracteres Alfanumericos");
         } else {
-            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
+            //Se Crea El Profesor Luego De Las Validaciones
+            profesor.setDni(Integer.valueOf(editarProfesor.getTxtDni().getText()));
+            profesor.setNombre(editarProfesor.getTxtNombre().getText());
+            profesor.setApellido(editarProfesor.getTxtApellido().getText());
+            profesor.setFechaNacimiento(Date.valueOf(editarProfesor.getDateChooserCombo().getText()));
+            profesor.setDomicilio(editarProfesor.getTxtDomicilio().getText());
+            profesor.setTelefono(editarProfesor.getTxtTelefono().getText());
+
+            if (profesor.updateProfesores(profesor) == true) {
+
+                clearTable();
+                listarProfesores(panelProfesores.getTblProfesores());
+                JOptionPane.showMessageDialog(null, "Editado Con Exito!");
+                agregarProfesor.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR");
+            }
         }
+
     }
 
     public void cargarVistaEditar() {
@@ -186,22 +202,38 @@ public class ControladorProfesores implements ActionListener {
         }
     }
 
-    public String convertirFecha(String fechaDDMMYYYY) {
+    public boolean validarTextoCampos() {
+        if (agregarProfesor.getTxtNombre().getText().length() > 45 || agregarProfesor.getTxtApellido().getText().length() > 45
+                || agregarProfesor.getTxtDomicilio().getText().length() > 45) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-        String[] parts = fechaDDMMYYYY.split("-");
-        String part1 = parts[0]; // Año
-        String part2 = parts[1]; // Mes
-        String part3 = parts[2]; //Dia
-
-        String fechaYYYYMMDD = part3 + "-" + part2 + "-" + part1;
-
-        return fechaYYYYMMDD;
+    public boolean validarTextoCamposEdicion() {
+        if (editarProfesor.getTxtNombre().getText().length() > 45 || editarProfesor.getTxtApellido().getText().length() > 45
+                || editarProfesor.getTxtDomicilio().getText().length() > 45) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean validarCampos() {
-        if (agregarProfesor.getTxtNombre().getText().isEmpty() || agregarProfesor.getTxtNombre().getText().isEmpty()
+        if (agregarProfesor.getTxtNombre().getText().isEmpty() || agregarProfesor.getTxtApellido().getText().isEmpty()
                 || agregarProfesor.getTxtDomicilio().getText().isEmpty()
                 || agregarProfesor.getTxtTelefono().getText().isEmpty() || agregarProfesor.getTxtDni().getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validarCamposEdicion() {
+        if (editarProfesor.getTxtNombre().getText().isEmpty() || editarProfesor.getTxtApellido().getText().isEmpty()
+                || editarProfesor.getTxtDomicilio().getText().isEmpty()
+                || editarProfesor.getTxtTelefono().getText().isEmpty() || editarProfesor.getTxtDni().getText().isEmpty()) {
             return false;
         } else {
             return true;

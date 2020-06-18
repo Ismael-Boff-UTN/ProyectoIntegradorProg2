@@ -1,6 +1,7 @@
 package com.sky.pi.controller;
 
 import com.sky.pi.model.Alumno;
+import com.sky.pi.model.Inscripcion;
 import com.sky.pi.view.AgregarAlumno;
 import com.sky.pi.view.EditarAlumno;
 import com.sky.pi.view.Menu;
@@ -9,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorAlumnos implements ActionListener {
 
     private Alumno alumno = new Alumno();
-
+    private Validations val = new Validations();
+    private Inscripcion inscripcion = new Inscripcion();
     private AgregarAlumno agregarAlumno = new AgregarAlumno();
     private EditarAlumno editarAlumno = new EditarAlumno();
     private PanelAlumnos panelAlumnos;
@@ -56,7 +57,7 @@ public class ControladorAlumnos implements ActionListener {
             cargarVistaEditar();
 
         } else if (e.getSource() == agregarAlumno.getBtnAgregar()) {
-           
+
             agregar();
         } else if (e.getSource() == agregarAlumno.getBtnCancelar()) {
             agregarAlumno.dispose();
@@ -95,34 +96,74 @@ public class ControladorAlumnos implements ActionListener {
     }
 
     public void agregar() {
-        
+
         if (validarCampos() == false) {
             JOptionPane.showMessageDialog(null, "Todos Los Campos Deben Estar Completos!");
-         
+        } else if (validarTextoCampos() == false) {
+            JOptionPane.showMessageDialog(null, "Los Campos Nombre, Apellido Y Domicilio Pueden Tener Maximo 45 Caracteres!");
+        } else if (val.verificarDni(agregarAlumno.getTxtDni().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "DNI Debe Contener 8 Digitos");
+        } else if (val.verificarTelefono(agregarAlumno.getTxtTelefono().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Telefono Puede Contener Un Maximo De 12 Caracteres Alfanumericos");
+        } else if (val.dniContieneLetras(agregarAlumno.getTxtDni().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "DNI Solo Puede Contener Numeros!");
+        } else if (alumno.alumnoExist(Integer.valueOf(agregarAlumno.getTxtDni().getText())) == true) {
+            JOptionPane.showMessageDialog(null, "El Alumno Con DNI : " + agregarAlumno.getTxtDni().getText() + " Ya Existe!");
         } else {
-
-            alumno = new Alumno(
-                    Integer.valueOf(agregarAlumno.getTxtDni().getText()),
-                    agregarAlumno.getTxtNombre().getText(),
-                    agregarAlumno.getTxtApellido().getText(),
-                    Date.valueOf(agregarAlumno.getDateChooser().getText()),
-                    agregarAlumno.getTxtDomicilio().getText(),
-                    agregarAlumno.getTxtTelefono().getText()
-            );
+            //Se Crea El Alumno Una Vez Que Se Validaron Los Datos Ingresados Por La Vista
+            alumno.setDni(Integer.valueOf(agregarAlumno.getTxtDni().getText()));
+            alumno.setNombre(agregarAlumno.getTxtNombre().getText());
+            alumno.setApellido(agregarAlumno.getTxtApellido().getText());
+            alumno.setFechaNacimiento(Date.valueOf(agregarAlumno.getDateChooser().getText()));
+            alumno.setDomicilio(agregarAlumno.getTxtDomicilio().getText());
+            alumno.setTelefono(agregarAlumno.getTxtTelefono().getText());
 
             if (alumno.createAlumno(alumno) == true) {
 
                 clearTable();
                 listarAlumnos(panelAlumnos.getTblAlumnos());
                 JOptionPane.showMessageDialog(null, "Guardado Con Exito!");
-                
+
                 agregarAlumno.dispose();
 
             } else {
-                JOptionPane.showMessageDialog(null, "ERROR");
-              
+                JOptionPane.showMessageDialog(null, "ERROR, Revisar Consola...");
+
             }
         }
+    }
+
+    public void editar() {
+
+        if (validarCamposEdicion() == false) {
+            JOptionPane.showMessageDialog(null, "Todos Los Campos Deben Estar Completos!");
+
+        } else if (validarTextoCamposEditar() == false) {
+            JOptionPane.showMessageDialog(null, "Los Campos Nombre, Apellido Y Domicilio Pueden Tener Maximo 45 Caracteres!");
+        } else if (val.verificarTelefono(editarAlumno.getTxtTelefono().getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Telefono Puede Contener Un Maximo De 12 Caracteres Alfanumericos");
+        } else {
+            //Se Actualiza El Alumno Una Vez Que Se Validaron Los Datos Ingresados Por La Vista
+            alumno.setDni(Integer.valueOf(editarAlumno.getTxtDni().getText()));
+            alumno.setNombre(editarAlumno.getTxtNombre().getText());
+            alumno.setApellido(editarAlumno.getTxtApellido().getText());
+            alumno.setFechaNacimiento(Date.valueOf(editarAlumno.getDateChooser().getText()));
+            alumno.setDomicilio(editarAlumno.getTxtDomicilio().getText());
+            alumno.setTelefono(editarAlumno.getTxtTelefono().getText());
+
+            if (alumno.updateAlumno(alumno) == true) {
+
+                clearTable();
+                listarAlumnos(panelAlumnos.getTblAlumnos());
+                JOptionPane.showMessageDialog(null, "Editado Con Exito");
+                editarAlumno.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ERROR, Revisar Consola...");
+
+            }
+        }
+
     }
 
     public void eliminar() {
@@ -130,36 +171,19 @@ public class ControladorAlumnos implements ActionListener {
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Debe Seleccione Una Fila!");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Desea Elimnar?", "Seleccione Una Opc.", JOptionPane.YES_NO_OPTION) == 0) {
+            if (JOptionPane.showConfirmDialog(null, "Esto Tambien Eliminará La Inscripcion Del Alumno!", "Desea Eliminar?", JOptionPane.YES_NO_OPTION) == 0) {
                 int id = Integer.parseInt((String) panelAlumnos.getTblAlumnos().getValueAt(fila, 0).toString());
+                int inscCod = Integer.valueOf(panelAlumnos.getTblAlumnos().getValueAt(fila, 6).toString());
+                if (Integer.valueOf(panelAlumnos.getTblAlumnos().getValueAt(fila, 6).toString()) > 0) {
+                    inscripcion.deleteInscripcion(inscCod);
+                }
+
                 alumno.deleteAlumno(id);
                 clearTable();
                 listarAlumnos(panelAlumnos.getTblAlumnos());
                 JOptionPane.showMessageDialog(null, "Eliminado!");
             }
 
-        }
-    }
-
-    public void editar() {
-
-        int dni = Integer.valueOf(editarAlumno.getTxtDni().getText());
-        String nombre = editarAlumno.getTxtNombre().getText();
-        String apellido = editarAlumno.getTxtApellido().getText();
-        Date fechaNacimiento = Date.valueOf(editarAlumno.getDateChooser().getText());
-        String domicilio = editarAlumno.getTxtDomicilio().getText();
-        String telefono = editarAlumno.getTxtTelefono().getText();
-
-        alumno = new Alumno(dni, nombre, apellido, fechaNacimiento, domicilio, telefono);
-
-        if (alumno.updateAlumno(alumno) == true) {
-            clearTable();
-            listarAlumnos(panelAlumnos.getTblAlumnos());
-            JOptionPane.showMessageDialog(null, "Editado Con Exito");
-            editarAlumno.dispose();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "ha Ocurrido Un Error!");
         }
     }
 
@@ -192,4 +216,33 @@ public class ControladorAlumnos implements ActionListener {
         }
     }
 
+    public boolean validarCamposEdicion() {
+        if (editarAlumno.getTxtNombre().getText().isEmpty() || editarAlumno.getTxtApellido().getText().isEmpty()
+                || editarAlumno.getTxtDomicilio().getText().isEmpty()
+                || editarAlumno.getTxtTelefono().getText().isEmpty() || editarAlumno.getTxtDni().getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validarTextoCampos() {
+        if (agregarAlumno.getTxtNombre().getText().length() > 45 || agregarAlumno.getTxtApellido().getText().length() > 45
+                || agregarAlumno.getTxtDomicilio().getText().length() > 45) {
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validarTextoCamposEditar() {
+        if (editarAlumno.getTxtNombre().getText().length() > 45 || editarAlumno.getTxtApellido().getText().length() > 45
+                || editarAlumno.getTxtDomicilio().getText().length() > 45) {
+            return false;
+
+        } else {
+            return true;
+        }
+    }
 }
